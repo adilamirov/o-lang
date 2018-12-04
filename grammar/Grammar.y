@@ -1,3 +1,6 @@
+//Identifier
+%token IDENTIFIER
+
 
 //Variables
 %token INTEGERLITERAL
@@ -48,7 +51,7 @@ ClassDeclaration
 ;
 
 ClassName
-: LBRACKET Identifier RBRACKET 
+: LBRACKET IDENTIFIER RBRACKET 
 |
 ;
 
@@ -68,17 +71,17 @@ MemberDeclaration
 
 //VARIABLE
 
-VariableDeclaration : VAR Identifier COLON Expression ;
+VariableDeclaration : VAR IDENTIFIER COLON Expression ;
 
 
 //METHOD
 
 MethodDeclaration
-: METHOD Identifier Parameters COLON Identifier
+: METHOD IDENTIFIER Parameters COLON IDENTIFIER
     IS Body END
-| METHOD Identifier COLON Identifier
+| METHOD IDENTIFIER COLON IDENTIFIER
     IS Body END
-| METHOD Identifier Parameters
+| METHOD IDENTIFIER Parameters
     IS Body END
 ;
 
@@ -94,7 +97,7 @@ ParameterDeclarations
 |
 ;
 
-ParameterDeclaration: Identifier COLON ClassName ;
+ParameterDeclaration: IDENTIFIER COLON ClassName ;
 
 
 //BODY
@@ -112,25 +115,30 @@ ConstructorDeclaration
 |THIS IS Body END 
 ;
 
+
+Assignment: IDENTIFIER ASSIGN Expression ;
+
+WhileLoop: WHILE Expression LOOP Body END ;
+
+
 Statement
 : Assignment
-| WileLoop
+| WhileLoop
 | IfStatement
 | ReturnStatement
 ;
-
-
-Assignment: Identifier ASSIGN Expression ;
-
-WhileLoop: WHILE Expression LOOP Body END ;
 
 IfStatement
 : IF Expression THEN Body ELSE Body END 
 | IF Expression THEN Body END ;
 
 ReturnStatement
-: RETURN Expression 
-|RETURN 
+: RETURN ReturnExpression
+;
+
+ReturnExpression
+: Expression
+|
 ;
 
 //EXPRESSION
@@ -139,8 +147,8 @@ Expression
 ;
 
 ExpressionBody
-: ExpressionBody DOT Identifier Arguments
-| ExpressionBody DOT Identifier
+: ExpressionBody DOT IDENTIFIER Arguments
+| ExpressionBody DOT IDENTIFIER
 |
 ;
 
