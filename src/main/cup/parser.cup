@@ -1,0 +1,131 @@
+package ru.innopolis.comicon.cup;
+
+import java_cup.runtime.*;
+
+init with {: scanner.init();              :};
+scan with {: return scanner.next_token(); :};
+
+terminal IDENTIFIER;
+terminal INTEGERLITERAL, REALLITERAL, BOOLEANLITERAL;
+terminal CLASS, EXTENDS, IS, END, VAR, METHOD, THIS, WHILE, LOOP, IF, THEN, ELSE, RETURN;
+terminal LPAREN, RPAREN, LBRACKET, RBRCKET, COMMA, DOT, COLON;
+terminal ASSIGN;
+
+nonterminal Program, ClassDeclaration;
+nonterminal ClassDeclaration, ClassName, MemeberDeclarations;
+nonterminal VariableDeclaration, MethodDeclaration, ConstructorDeclaration;
+nonterminal Expression;
+nonterminal Parameters, Body;
+nonterminal ParameterDeclarations;
+nonterminal Statement;
+nonterminal Assignment;
+nonterminal WhileLoop, IfStatement, ReturnStatement;
+nonterminal ReturnExpression;
+nonterminal ExpressionBody;
+nonterminal Arguments;
+nonterminal ArgumentExpression;
+nonterminal Primary;
+
+precedence left LPAREN, RPAREN;
+
+Program ::= ClassDeclaration Program
+|
+;
+
+ClassDeclaration ::= CLASS ClassName EXTENDS ClassName IS MemeberDeclarations END
+| CLASS ClassName IS MemeberDeclarations END
+;
+
+ClassName ::= IDENTIFIER;
+
+MemeberDeclarations ::= MemeberDeclarations MemeberDeclarations
+|
+;
+
+MemeberDeclarations ::= VariableDeclaration
+| MethodDeclaration
+| ConstructorDeclaration
+;
+
+VariableDeclaration ::= VAR IDENTIFIER COLON Expression;
+
+
+MethodDeclaration ::= METHOD IDENTIFIER Parameters COLON IDENTIFIER IS Body END
+| METHOD IDENTIFIER COLON IDENTIFIER IS Body END
+| METHOD IDENTIFIER Parameters IS Body END
+;
+
+
+ConstructorDeclaration ::= THIS Parameters IS Body END
+| THIS IS Body END
+;
+
+
+Parameters ::= LPAREN ParameterDeclaration ParameterDeclarations RPAREN
+;
+
+
+ParameterDeclarations ::= ParameterDeclarations COLON ParameterDeclaration
+|
+;
+
+
+ParameterDeclaration ::= IDENTIFIER COLON ClassName
+;
+
+
+Body ::= Body VariableDeclaration
+| Body Statement
+|
+;
+
+Assignment ::= IDENTIFIER ASSIGN Expression ;
+
+WhileLoop ::= WHILE Expression LOOP Body END ;
+
+Statement
+::= Assignment
+| WhileLoop
+| IfStatement
+| ReturnStatement
+;
+
+IfStatement
+::= IF Expression THEN Body ELSE Body END
+| IF Expression THEN Body END ;
+
+ReturnStatement
+::= RETURN ReturnExpression
+;
+
+ReturnExpression
+::= Expression
+|
+;
+
+Expression
+::= Primary ExpressionBody
+;
+
+ExpressionBody
+::= ExpressionBody DOT IDENTIFIER Arguments
+| ExpressionBody DOT IDENTIFIER
+|
+;
+
+Arguments
+::= LPAREN Expression ArgumentExpression RPAREN
+;
+
+ArgumentExpression
+::= ArgumentExpression COMMA Expression
+|
+;
+
+Primary
+::= INTEGERLITERAL
+| REALLITERAL
+| BOOLEANLITERAL
+| THIS
+| ClassName
+;
