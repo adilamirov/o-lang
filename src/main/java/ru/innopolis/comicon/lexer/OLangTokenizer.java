@@ -2,6 +2,7 @@ package ru.innopolis.comicon.lexer;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StreamTokenizer;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class OLangTokenizer {
     public static final int TT_WORD = -3;
     public static final int TT_NOTHING = -4;
 
-    public static final int TT_LITERAL = -5;
+    public static final int TT_IDENTIFIER = -5;
     public static final int TT_SEMICOLON = -6;
     public static final int TT_ASSIGN = -7;
     public static final int TT_DOT = -8;
@@ -70,7 +71,7 @@ public class OLangTokenizer {
     public static final int TT_MINUS_SIGN = -27;
     public static final int TT_PLUS_SIGN = -28;
 
-    private static final Map<String, Integer> KEYWORDS = new HashMap<>()
+    private static final Map<String, Integer> KEYWORDS = new HashMap<String, Integer>()
     {{
         put("class", TT_KW_CLASS);
         put("extends", TT_KW_EXTENDS);
@@ -87,7 +88,7 @@ public class OLangTokenizer {
         put("return", TT_KW_RETURN);
     }};
 
-    private static final Map<Character, Integer> BRACKETS = new HashMap<>()
+    private static final Map<Character, Integer> BRACKETS = new HashMap<Character, Integer>()
     {{
         put('(', TT_BRACKET_ROUND_OP);
         put(')', TT_BRACKET_ROUND_CL);
@@ -206,9 +207,9 @@ public class OLangTokenizer {
      *
      * @return     the value of the {@code ttype} field.
      * @exception  IOException  if an I/O error occurs.
-     * @see        java.io.StreamTokenizer#nval
-     * @see        java.io.StreamTokenizer#sval
-     * @see        java.io.StreamTokenizer#ttype
+     * @see        StreamTokenizer#nval
+     * @see        StreamTokenizer#sval
+     * @see        StreamTokenizer#ttype
      */
     public int nextToken() throws IOException {
         byte ct[] = ctype;
@@ -314,7 +315,7 @@ public class OLangTokenizer {
             if (KEYWORDS.containsKey(sval)) {
                 return ttype = KEYWORDS.get(sval);
             }
-            return ttype = TT_LITERAL;
+            return ttype = TT_IDENTIFIER;
         }
 
         if (BRACKETS.containsKey((char) c)) {
@@ -382,7 +383,7 @@ public class OLangTokenizer {
             case TT_NOTHING:
                 ret = "NOTHING";
                 break;
-            case TT_LITERAL:
+            case TT_IDENTIFIER:
                 ret="TT_LITERAL";
                 break;
             case TT_SEMICOLON:
