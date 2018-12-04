@@ -1,3 +1,6 @@
+//Identifier
+%token IDENTIFIER
+
 
 //Variables
 %token INTEGERLITERAL
@@ -41,19 +44,17 @@ Program
 
 //CLASS 
 ClassDeclaration
-: CLASS ClassName EXTENDS ClassName IS MemberDeclarations
-  END
-| CLASS ClassName IS MemberDeclarations 
-  END
+: CLASS ClassName EXTENDS ClassName IS MemberDeclarations END
+| CLASS ClassName IS MemberDeclarations END
 ;
 
 ClassName
-: LBRACKET Identifier RBRACKET 
-|
+: IDENTIFIER
 ;
 
 
-//MEMBER 
+// MEMBER
+
 MemberDeclarations
 : MemberDeclarations MemberDeclaration
 |
@@ -65,25 +66,23 @@ MemberDeclaration
 | ConstructorDeclaration
 ;
 
-
-//VARIABLE
-
-VariableDeclaration : VAR Identifier COLON Expression ;
-
-
-//METHOD
+VariableDeclaration
+: VAR IDENTIFIER COLON Expression
+;
 
 MethodDeclaration
-: METHOD Identifier Parameters COLON Identifier
-    IS Body END
-| METHOD Identifier COLON Identifier
-    IS Body END
-| METHOD Identifier Parameters
-    IS Body END
+: METHOD IDENTIFIER Parameters COLON IDENTIFIER IS Body END
+| METHOD IDENTIFIER COLON IDENTIFIER IS Body END
+| METHOD IDENTIFIER Parameters IS Body END
+;
+
+ConstructorDeclaration
+: THIS Parameters IS Body END
+| THIS IS Body END
 ;
 
 
-//PARAMETER
+// PARAMETER
 
 Parameters
 : LPAREN ParameterDeclaration ParameterDeclarations RPAREN
@@ -94,7 +93,9 @@ ParameterDeclarations
 |
 ;
 
-ParameterDeclaration: Identifier COLON ClassName ;
+ParameterDeclaration
+: IDENTIFIER COLON ClassName
+;
 
 
 //BODY
@@ -105,32 +106,31 @@ Body
 |
 ;
 
-//CONSTRUCTOR
+Assignment: IDENTIFIER ASSIGN Expression ;
 
-ConstructorDeclaration
-: THIS Parameters IS Body END 
-|THIS IS Body END 
-;
+WhileLoop: WHILE Expression LOOP Body END ;
+
+
+// STATEMENT
 
 Statement
 : Assignment
-| WileLoop
+| WhileLoop
 | IfStatement
 | ReturnStatement
 ;
-
-
-Assignment: Identifier ASSIGN Expression ;
-
-WhileLoop: WHILE Expression LOOP Body END ;
 
 IfStatement
 : IF Expression THEN Body ELSE Body END 
 | IF Expression THEN Body END ;
 
 ReturnStatement
-: RETURN Expression 
-|RETURN 
+: RETURN ReturnExpression
+;
+
+ReturnExpression
+: Expression
+|
 ;
 
 //EXPRESSION
@@ -139,19 +139,23 @@ Expression
 ;
 
 ExpressionBody
-: ExpressionBody DOT Identifier Arguments
-| ExpressionBody DOT Identifier
+: ExpressionBody DOT IDENTIFIER Arguments
+| ExpressionBody DOT IDENTIFIER
 |
 ;
 
 
 //ARGUMENT
-Arguments: LPAREN Expression ArgumentExpression RPAREN ;
+
+Arguments
+: LPAREN Expression ArgumentExpression RPAREN
+;
 
 ArgumentExpression
 : ArgumentExpression COMMA Expression
 |
 ;
+
 
 Primary
 : INTEGERLITERAL
