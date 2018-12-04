@@ -44,19 +44,17 @@ Program
 
 //CLASS 
 ClassDeclaration
-: CLASS ClassName EXTENDS ClassName IS MemberDeclarations
-  END
-| CLASS ClassName IS MemberDeclarations 
-  END
+: CLASS ClassName EXTENDS ClassName IS MemberDeclarations END
+| CLASS ClassName IS MemberDeclarations END
 ;
 
 ClassName
-: LBRACKET IDENTIFIER RBRACKET 
-|
+: IDENTIFIER
 ;
 
 
-//MEMBER 
+// MEMBER
+
 MemberDeclarations
 : MemberDeclarations MemberDeclaration
 |
@@ -68,25 +66,23 @@ MemberDeclaration
 | ConstructorDeclaration
 ;
 
-
-//VARIABLE
-
-VariableDeclaration : VAR IDENTIFIER COLON Expression ;
-
-
-//METHOD
+VariableDeclaration
+: VAR IDENTIFIER COLON Expression
+;
 
 MethodDeclaration
-: METHOD IDENTIFIER Parameters COLON IDENTIFIER
-    IS Body END
-| METHOD IDENTIFIER COLON IDENTIFIER
-    IS Body END
-| METHOD IDENTIFIER Parameters
-    IS Body END
+: METHOD IDENTIFIER Parameters COLON IDENTIFIER IS Body END
+| METHOD IDENTIFIER COLON IDENTIFIER IS Body END
+| METHOD IDENTIFIER Parameters IS Body END
+;
+
+ConstructorDeclaration
+: THIS Parameters IS Body END
+| THIS IS Body END
 ;
 
 
-//PARAMETER
+// PARAMETER
 
 Parameters
 : LPAREN ParameterDeclaration ParameterDeclarations RPAREN
@@ -97,7 +93,9 @@ ParameterDeclarations
 |
 ;
 
-ParameterDeclaration: IDENTIFIER COLON ClassName ;
+ParameterDeclaration
+: IDENTIFIER COLON ClassName
+;
 
 
 //BODY
@@ -108,18 +106,12 @@ Body
 |
 ;
 
-//CONSTRUCTOR
-
-ConstructorDeclaration
-: THIS Parameters IS Body END 
-|THIS IS Body END 
-;
-
-
 Assignment: IDENTIFIER ASSIGN Expression ;
 
 WhileLoop: WHILE Expression LOOP Body END ;
 
+
+// STATEMENT
 
 Statement
 : Assignment
@@ -154,12 +146,16 @@ ExpressionBody
 
 
 //ARGUMENT
-Arguments: LPAREN Expression ArgumentExpression RPAREN ;
+
+Arguments
+: LPAREN Expression ArgumentExpression RPAREN
+;
 
 ArgumentExpression
 : ArgumentExpression COMMA Expression
 |
 ;
+
 
 Primary
 : INTEGERLITERAL
