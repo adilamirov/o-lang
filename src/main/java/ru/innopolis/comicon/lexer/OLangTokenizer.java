@@ -44,7 +44,7 @@ public class OLangTokenizer {
     public static final int TT_NOTHING = -4;
 
     public static final int TT_IDENTIFIER = -5;
-    public static final int TT_SEMICOLON = -6;
+    public static final int TT_COLON = -6;
     public static final int TT_ASSIGN = -7;
     public static final int TT_DOT = -8;
     public static final int TT_COMMA = -9;
@@ -326,7 +326,7 @@ public class OLangTokenizer {
             c = this.read();
             if (c != '=') {
                 peekc = c;
-                return ttype = TT_SEMICOLON;
+                return ttype = TT_COLON;
             }
             return ttype = TT_ASSIGN;
         }
@@ -386,8 +386,8 @@ public class OLangTokenizer {
             case TT_IDENTIFIER:
                 ret="TT_LITERAL";
                 break;
-            case TT_SEMICOLON:
-                ret="TT_SEMICOLON";
+            case TT_COLON:
+                ret="TT_COLON";
                 break;
             case TT_ASSIGN:
                 ret="TT_ASSIGN";
