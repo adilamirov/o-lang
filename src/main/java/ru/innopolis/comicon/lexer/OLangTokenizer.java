@@ -5,8 +5,9 @@ import java.io.Reader;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java_cup.runtime.*;
 
-public class OLangTokenizer {
+public class OLangTokenizer implements java_cup.runtime.Scanner {
 
     private Reader reader = null;
 
@@ -70,7 +71,7 @@ public class OLangTokenizer {
     public static final int TT_MINUS_SIGN = -27;
     public static final int TT_PLUS_SIGN = -28;
 
-    private static final Map<String, Integer> KEYWORDS = new HashMap<>()
+    private static final Map<String, Integer> KEYWORDS = new HashMap<String, Integer>()
     {{
         put("class", TT_KW_CLASS);
         put("extends", TT_KW_EXTENDS);
@@ -87,7 +88,7 @@ public class OLangTokenizer {
         put("return", TT_KW_RETURN);
     }};
 
-    private static final Map<Character, Integer> BRACKETS = new HashMap<>()
+    private static final Map<Character, Integer> BRACKETS = new HashMap<Character, Integer>()
     {{
         put('(', TT_BRACKET_ROUND_OP);
         put(')', TT_BRACKET_ROUND_CL);
@@ -101,6 +102,13 @@ public class OLangTokenizer {
 
     /** Private constructor that initializes everything except the streams. */
     private OLangTokenizer() {
+        wordChars('a', 'z');
+        wordChars('A', 'Z');
+        whitespaceChars(0, ' ');
+        parseNumbers();
+    }
+
+    public void init() throws java.io.IOException {
         wordChars('a', 'z');
         wordChars('A', 'Z');
         whitespaceChars(0, ' ');
@@ -210,6 +218,11 @@ public class OLangTokenizer {
      * @see        java.io.StreamTokenizer#sval
      * @see        java.io.StreamTokenizer#ttype
      */
+
+    public Symbol next_token() throws java.lang.Exception {
+        return new Symbol(this.nextToken());
+    }
+
     public int nextToken() throws IOException {
         byte ct[] = ctype;
         sval = null;
