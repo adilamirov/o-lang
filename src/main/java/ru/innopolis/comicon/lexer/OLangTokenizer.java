@@ -6,8 +6,9 @@ import java.io.StreamTokenizer;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java_cup.runtime.*;
 
-public class OLangTokenizer {
+public class OLangTokenizer implements java_cup.runtime.Scanner {
 
     private Reader reader = null;
 
@@ -102,6 +103,13 @@ public class OLangTokenizer {
 
     /** Private constructor that initializes everything except the streams. */
     private OLangTokenizer() {
+        wordChars('a', 'z');
+        wordChars('A', 'Z');
+        whitespaceChars(0, ' ');
+        parseNumbers();
+    }
+
+    public void init() throws java.io.IOException {
         wordChars('a', 'z');
         wordChars('A', 'Z');
         whitespaceChars(0, ' ');
@@ -211,6 +219,11 @@ public class OLangTokenizer {
      * @see        StreamTokenizer#sval
      * @see        StreamTokenizer#ttype
      */
+
+    public Symbol next_token() throws java.lang.Exception {
+        return new Symbol(this.nextToken());
+    }
+
     public int nextToken() throws IOException {
         byte ct[] = ctype;
         sval = null;

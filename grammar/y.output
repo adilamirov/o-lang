@@ -1,0 +1,1121 @@
+Terminals which are not used
+
+   LBRACKET
+   RBRACKET
+
+
+State 49 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: Program $end
+
+    1 Program: ClassDeclaration Program
+    2        | /* empty */
+
+    3 ClassDeclaration: CLASS ClassName EXTENDS ClassName IS MemberDeclarations END
+    4                 | CLASS ClassName IS MemberDeclarations END
+
+    5 ClassName: IDENTIFIER
+
+    6 MemberDeclarations: MemberDeclarations MemberDeclaration
+    7                   | /* empty */
+
+    8 MemberDeclaration: VariableDeclaration
+    9                  | MethodDeclaration
+   10                  | ConstructorDeclaration
+
+   11 VariableDeclaration: VAR IDENTIFIER COLON Expression
+
+   12 MethodDeclaration: METHOD IDENTIFIER Parameters COLON IDENTIFIER IS Body END
+   13                  | METHOD IDENTIFIER COLON IDENTIFIER IS Body END
+   14                  | METHOD IDENTIFIER Parameters IS Body END
+
+   15 ConstructorDeclaration: THIS Parameters IS Body END
+   16                       | THIS IS Body END
+
+   17 Parameters: LPAREN ParameterDeclaration ParameterDeclarations RPAREN
+
+   18 ParameterDeclarations: ParameterDeclarations COLON ParameterDeclaration
+   19                      | /* empty */
+
+   20 ParameterDeclaration: IDENTIFIER COLON ClassName
+
+   21 Body: Body VariableDeclaration
+   22     | Body Statement
+   23     | /* empty */
+
+   24 Assignment: IDENTIFIER ASSIGN Expression
+
+   25 WhileLoop: WHILE Expression LOOP Body END
+
+   26 Statement: Assignment
+   27          | WhileLoop
+   28          | IfStatement
+   29          | ReturnStatement
+
+   30 IfStatement: IF Expression THEN Body ELSE Body END
+   31            | IF Expression THEN Body END
+
+   32 ReturnStatement: RETURN ReturnExpression
+
+   33 ReturnExpression: Expression
+   34                 | /* empty */
+
+   35 Expression: Primary ExpressionBody
+
+   36 ExpressionBody: ExpressionBody DOT IDENTIFIER Arguments
+   37               | ExpressionBody DOT IDENTIFIER
+   38               | /* empty */
+
+   39 Arguments: LPAREN Expression ArgumentExpression RPAREN
+
+   40 ArgumentExpression: ArgumentExpression COMMA Expression
+   41                   | /* empty */
+
+   42 Primary: INTEGERLITERAL
+   43        | REALLITERAL
+   44        | BOOLEANLITERAL
+   45        | THIS
+   46        | ClassName
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+IDENTIFIER (258) 5 11 12 13 14 20 24 36 37
+INTEGERLITERAL (259) 42
+REALLITERAL (260) 43
+BOOLEANLITERAL (261) 44
+CLASS (262) 3 4
+EXTENDS (263) 3
+IS (264) 3 4 12 13 14 15 16
+END (265) 3 4 12 13 14 15 16 25 30 31
+VAR (266) 11
+METHOD (267) 12 13 14
+THIS (268) 15 16 45
+WHILE (269) 25
+LOOP (270) 25
+IF (271) 30 31
+THEN (272) 30 31
+ELSE (273) 30
+RETURN (274) 32
+LPAREN (275) 17 39
+RPAREN (276) 17 39
+LBRACKET (277)
+RBRACKET (278)
+COMMA (279) 40
+DOT (280) 36 37
+COLON (281) 11 12 13 18 20
+ASSIGN (282) 24
+
+
+Nonterminals, with rules where they appear
+
+$accept (28)
+    on left: 0
+Program (29)
+    on left: 1 2, on right: 0 1
+ClassDeclaration (30)
+    on left: 3 4, on right: 1
+ClassName (31)
+    on left: 5, on right: 3 4 20 46
+MemberDeclarations (32)
+    on left: 6 7, on right: 3 4 6
+MemberDeclaration (33)
+    on left: 8 9 10, on right: 6
+VariableDeclaration (34)
+    on left: 11, on right: 8 21
+MethodDeclaration (35)
+    on left: 12 13 14, on right: 9
+ConstructorDeclaration (36)
+    on left: 15 16, on right: 10
+Parameters (37)
+    on left: 17, on right: 12 14 15
+ParameterDeclarations (38)
+    on left: 18 19, on right: 17 18
+ParameterDeclaration (39)
+    on left: 20, on right: 17 18
+Body (40)
+    on left: 21 22 23, on right: 12 13 14 15 16 21 22 25 30 31
+Assignment (41)
+    on left: 24, on right: 26
+WhileLoop (42)
+    on left: 25, on right: 27
+Statement (43)
+    on left: 26 27 28 29, on right: 22
+IfStatement (44)
+    on left: 30 31, on right: 28
+ReturnStatement (45)
+    on left: 32, on right: 29
+ReturnExpression (46)
+    on left: 33 34, on right: 32
+Expression (47)
+    on left: 35, on right: 11 24 25 30 31 33 39 40
+ExpressionBody (48)
+    on left: 36 37 38, on right: 35 36 37
+Arguments (49)
+    on left: 39, on right: 36
+ArgumentExpression (50)
+    on left: 40 41, on right: 39 40
+Primary (51)
+    on left: 42 43 44 45 46, on right: 35
+
+
+state 0
+
+    0 $accept: . Program $end
+
+    CLASS  shift, and go to state 1
+
+    $default  reduce using rule 2 (Program)
+
+    Program           go to state 2
+    ClassDeclaration  go to state 3
+
+
+state 1
+
+    3 ClassDeclaration: CLASS . ClassName EXTENDS ClassName IS MemberDeclarations END
+    4                 | CLASS . ClassName IS MemberDeclarations END
+
+    IDENTIFIER  shift, and go to state 4
+
+    ClassName  go to state 5
+
+
+state 2
+
+    0 $accept: Program . $end
+
+    $end  shift, and go to state 6
+
+
+state 3
+
+    1 Program: ClassDeclaration . Program
+
+    CLASS  shift, and go to state 1
+
+    $default  reduce using rule 2 (Program)
+
+    Program           go to state 7
+    ClassDeclaration  go to state 3
+
+
+state 4
+
+    5 ClassName: IDENTIFIER .
+
+    $default  reduce using rule 5 (ClassName)
+
+
+state 5
+
+    3 ClassDeclaration: CLASS ClassName . EXTENDS ClassName IS MemberDeclarations END
+    4                 | CLASS ClassName . IS MemberDeclarations END
+
+    EXTENDS  shift, and go to state 8
+    IS       shift, and go to state 9
+
+
+state 6
+
+    0 $accept: Program $end .
+
+    $default  accept
+
+
+state 7
+
+    1 Program: ClassDeclaration Program .
+
+    $default  reduce using rule 1 (Program)
+
+
+state 8
+
+    3 ClassDeclaration: CLASS ClassName EXTENDS . ClassName IS MemberDeclarations END
+
+    IDENTIFIER  shift, and go to state 4
+
+    ClassName  go to state 10
+
+
+state 9
+
+    4 ClassDeclaration: CLASS ClassName IS . MemberDeclarations END
+
+    $default  reduce using rule 7 (MemberDeclarations)
+
+    MemberDeclarations  go to state 11
+
+
+state 10
+
+    3 ClassDeclaration: CLASS ClassName EXTENDS ClassName . IS MemberDeclarations END
+
+    IS  shift, and go to state 12
+
+
+state 11
+
+    4 ClassDeclaration: CLASS ClassName IS MemberDeclarations . END
+    6 MemberDeclarations: MemberDeclarations . MemberDeclaration
+
+    END     shift, and go to state 13
+    VAR     shift, and go to state 14
+    METHOD  shift, and go to state 15
+    THIS    shift, and go to state 16
+
+    MemberDeclaration       go to state 17
+    VariableDeclaration     go to state 18
+    MethodDeclaration       go to state 19
+    ConstructorDeclaration  go to state 20
+
+
+state 12
+
+    3 ClassDeclaration: CLASS ClassName EXTENDS ClassName IS . MemberDeclarations END
+
+    $default  reduce using rule 7 (MemberDeclarations)
+
+    MemberDeclarations  go to state 21
+
+
+state 13
+
+    4 ClassDeclaration: CLASS ClassName IS MemberDeclarations END .
+
+    $default  reduce using rule 4 (ClassDeclaration)
+
+
+state 14
+
+   11 VariableDeclaration: VAR . IDENTIFIER COLON Expression
+
+    IDENTIFIER  shift, and go to state 22
+
+
+state 15
+
+   12 MethodDeclaration: METHOD . IDENTIFIER Parameters COLON IDENTIFIER IS Body END
+   13                  | METHOD . IDENTIFIER COLON IDENTIFIER IS Body END
+   14                  | METHOD . IDENTIFIER Parameters IS Body END
+
+    IDENTIFIER  shift, and go to state 23
+
+
+state 16
+
+   15 ConstructorDeclaration: THIS . Parameters IS Body END
+   16                       | THIS . IS Body END
+
+    IS      shift, and go to state 24
+    LPAREN  shift, and go to state 25
+
+    Parameters  go to state 26
+
+
+state 17
+
+    6 MemberDeclarations: MemberDeclarations MemberDeclaration .
+
+    $default  reduce using rule 6 (MemberDeclarations)
+
+
+state 18
+
+    8 MemberDeclaration: VariableDeclaration .
+
+    $default  reduce using rule 8 (MemberDeclaration)
+
+
+state 19
+
+    9 MemberDeclaration: MethodDeclaration .
+
+    $default  reduce using rule 9 (MemberDeclaration)
+
+
+state 20
+
+   10 MemberDeclaration: ConstructorDeclaration .
+
+    $default  reduce using rule 10 (MemberDeclaration)
+
+
+state 21
+
+    3 ClassDeclaration: CLASS ClassName EXTENDS ClassName IS MemberDeclarations . END
+    6 MemberDeclarations: MemberDeclarations . MemberDeclaration
+
+    END     shift, and go to state 27
+    VAR     shift, and go to state 14
+    METHOD  shift, and go to state 15
+    THIS    shift, and go to state 16
+
+    MemberDeclaration       go to state 17
+    VariableDeclaration     go to state 18
+    MethodDeclaration       go to state 19
+    ConstructorDeclaration  go to state 20
+
+
+state 22
+
+   11 VariableDeclaration: VAR IDENTIFIER . COLON Expression
+
+    COLON  shift, and go to state 28
+
+
+state 23
+
+   12 MethodDeclaration: METHOD IDENTIFIER . Parameters COLON IDENTIFIER IS Body END
+   13                  | METHOD IDENTIFIER . COLON IDENTIFIER IS Body END
+   14                  | METHOD IDENTIFIER . Parameters IS Body END
+
+    LPAREN  shift, and go to state 25
+    COLON   shift, and go to state 29
+
+    Parameters  go to state 30
+
+
+state 24
+
+   16 ConstructorDeclaration: THIS IS . Body END
+
+    $default  reduce using rule 23 (Body)
+
+    Body  go to state 31
+
+
+state 25
+
+   17 Parameters: LPAREN . ParameterDeclaration ParameterDeclarations RPAREN
+
+    IDENTIFIER  shift, and go to state 32
+
+    ParameterDeclaration  go to state 33
+
+
+state 26
+
+   15 ConstructorDeclaration: THIS Parameters . IS Body END
+
+    IS  shift, and go to state 34
+
+
+state 27
+
+    3 ClassDeclaration: CLASS ClassName EXTENDS ClassName IS MemberDeclarations END .
+
+    $default  reduce using rule 3 (ClassDeclaration)
+
+
+state 28
+
+   11 VariableDeclaration: VAR IDENTIFIER COLON . Expression
+
+    IDENTIFIER      shift, and go to state 4
+    INTEGERLITERAL  shift, and go to state 35
+    REALLITERAL     shift, and go to state 36
+    BOOLEANLITERAL  shift, and go to state 37
+    THIS            shift, and go to state 38
+
+    ClassName   go to state 39
+    Expression  go to state 40
+    Primary     go to state 41
+
+
+state 29
+
+   13 MethodDeclaration: METHOD IDENTIFIER COLON . IDENTIFIER IS Body END
+
+    IDENTIFIER  shift, and go to state 42
+
+
+state 30
+
+   12 MethodDeclaration: METHOD IDENTIFIER Parameters . COLON IDENTIFIER IS Body END
+   14                  | METHOD IDENTIFIER Parameters . IS Body END
+
+    IS     shift, and go to state 43
+    COLON  shift, and go to state 44
+
+
+state 31
+
+   16 ConstructorDeclaration: THIS IS Body . END
+   21 Body: Body . VariableDeclaration
+   22     | Body . Statement
+
+    IDENTIFIER  shift, and go to state 45
+    END         shift, and go to state 46
+    VAR         shift, and go to state 14
+    WHILE       shift, and go to state 47
+    IF          shift, and go to state 48
+    RETURN      shift, and go to state 49
+
+    VariableDeclaration  go to state 50
+    Assignment           go to state 51
+    WhileLoop            go to state 52
+    Statement            go to state 53
+    IfStatement          go to state 54
+    ReturnStatement      go to state 55
+
+
+state 32
+
+   20 ParameterDeclaration: IDENTIFIER . COLON ClassName
+
+    COLON  shift, and go to state 56
+
+
+state 33
+
+   17 Parameters: LPAREN ParameterDeclaration . ParameterDeclarations RPAREN
+
+    $default  reduce using rule 19 (ParameterDeclarations)
+
+    ParameterDeclarations  go to state 57
+
+
+state 34
+
+   15 ConstructorDeclaration: THIS Parameters IS . Body END
+
+    $default  reduce using rule 23 (Body)
+
+    Body  go to state 58
+
+
+state 35
+
+   42 Primary: INTEGERLITERAL .
+
+    $default  reduce using rule 42 (Primary)
+
+
+state 36
+
+   43 Primary: REALLITERAL .
+
+    $default  reduce using rule 43 (Primary)
+
+
+state 37
+
+   44 Primary: BOOLEANLITERAL .
+
+    $default  reduce using rule 44 (Primary)
+
+
+state 38
+
+   45 Primary: THIS .
+
+    $default  reduce using rule 45 (Primary)
+
+
+state 39
+
+   46 Primary: ClassName .
+
+    $default  reduce using rule 46 (Primary)
+
+
+state 40
+
+   11 VariableDeclaration: VAR IDENTIFIER COLON Expression .
+
+    $default  reduce using rule 11 (VariableDeclaration)
+
+
+state 41
+
+   35 Expression: Primary . ExpressionBody
+
+    $default  reduce using rule 38 (ExpressionBody)
+
+    ExpressionBody  go to state 59
+
+
+state 42
+
+   13 MethodDeclaration: METHOD IDENTIFIER COLON IDENTIFIER . IS Body END
+
+    IS  shift, and go to state 60
+
+
+state 43
+
+   14 MethodDeclaration: METHOD IDENTIFIER Parameters IS . Body END
+
+    $default  reduce using rule 23 (Body)
+
+    Body  go to state 61
+
+
+state 44
+
+   12 MethodDeclaration: METHOD IDENTIFIER Parameters COLON . IDENTIFIER IS Body END
+
+    IDENTIFIER  shift, and go to state 62
+
+
+state 45
+
+   24 Assignment: IDENTIFIER . ASSIGN Expression
+
+    ASSIGN  shift, and go to state 63
+
+
+state 46
+
+   16 ConstructorDeclaration: THIS IS Body END .
+
+    $default  reduce using rule 16 (ConstructorDeclaration)
+
+
+state 47
+
+   25 WhileLoop: WHILE . Expression LOOP Body END
+
+    IDENTIFIER      shift, and go to state 4
+    INTEGERLITERAL  shift, and go to state 35
+    REALLITERAL     shift, and go to state 36
+    BOOLEANLITERAL  shift, and go to state 37
+    THIS            shift, and go to state 38
+
+    ClassName   go to state 39
+    Expression  go to state 64
+    Primary     go to state 41
+
+
+state 48
+
+   30 IfStatement: IF . Expression THEN Body ELSE Body END
+   31            | IF . Expression THEN Body END
+
+    IDENTIFIER      shift, and go to state 4
+    INTEGERLITERAL  shift, and go to state 35
+    REALLITERAL     shift, and go to state 36
+    BOOLEANLITERAL  shift, and go to state 37
+    THIS            shift, and go to state 38
+
+    ClassName   go to state 39
+    Expression  go to state 65
+    Primary     go to state 41
+
+
+state 49
+
+   32 ReturnStatement: RETURN . ReturnExpression
+
+    IDENTIFIER      shift, and go to state 4
+    INTEGERLITERAL  shift, and go to state 35
+    REALLITERAL     shift, and go to state 36
+    BOOLEANLITERAL  shift, and go to state 37
+    THIS            shift, and go to state 38
+
+    IDENTIFIER  [reduce using rule 34 (ReturnExpression)]
+    $default    reduce using rule 34 (ReturnExpression)
+
+    ClassName         go to state 39
+    ReturnExpression  go to state 66
+    Expression        go to state 67
+    Primary           go to state 41
+
+
+state 50
+
+   21 Body: Body VariableDeclaration .
+
+    $default  reduce using rule 21 (Body)
+
+
+state 51
+
+   26 Statement: Assignment .
+
+    $default  reduce using rule 26 (Statement)
+
+
+state 52
+
+   27 Statement: WhileLoop .
+
+    $default  reduce using rule 27 (Statement)
+
+
+state 53
+
+   22 Body: Body Statement .
+
+    $default  reduce using rule 22 (Body)
+
+
+state 54
+
+   28 Statement: IfStatement .
+
+    $default  reduce using rule 28 (Statement)
+
+
+state 55
+
+   29 Statement: ReturnStatement .
+
+    $default  reduce using rule 29 (Statement)
+
+
+state 56
+
+   20 ParameterDeclaration: IDENTIFIER COLON . ClassName
+
+    IDENTIFIER  shift, and go to state 4
+
+    ClassName  go to state 68
+
+
+state 57
+
+   17 Parameters: LPAREN ParameterDeclaration ParameterDeclarations . RPAREN
+   18 ParameterDeclarations: ParameterDeclarations . COLON ParameterDeclaration
+
+    RPAREN  shift, and go to state 69
+    COLON   shift, and go to state 70
+
+
+state 58
+
+   15 ConstructorDeclaration: THIS Parameters IS Body . END
+   21 Body: Body . VariableDeclaration
+   22     | Body . Statement
+
+    IDENTIFIER  shift, and go to state 45
+    END         shift, and go to state 71
+    VAR         shift, and go to state 14
+    WHILE       shift, and go to state 47
+    IF          shift, and go to state 48
+    RETURN      shift, and go to state 49
+
+    VariableDeclaration  go to state 50
+    Assignment           go to state 51
+    WhileLoop            go to state 52
+    Statement            go to state 53
+    IfStatement          go to state 54
+    ReturnStatement      go to state 55
+
+
+state 59
+
+   35 Expression: Primary ExpressionBody .
+   36 ExpressionBody: ExpressionBody . DOT IDENTIFIER Arguments
+   37               | ExpressionBody . DOT IDENTIFIER
+
+    DOT  shift, and go to state 72
+
+    $default  reduce using rule 35 (Expression)
+
+
+state 60
+
+   13 MethodDeclaration: METHOD IDENTIFIER COLON IDENTIFIER IS . Body END
+
+    $default  reduce using rule 23 (Body)
+
+    Body  go to state 73
+
+
+state 61
+
+   14 MethodDeclaration: METHOD IDENTIFIER Parameters IS Body . END
+   21 Body: Body . VariableDeclaration
+   22     | Body . Statement
+
+    IDENTIFIER  shift, and go to state 45
+    END         shift, and go to state 74
+    VAR         shift, and go to state 14
+    WHILE       shift, and go to state 47
+    IF          shift, and go to state 48
+    RETURN      shift, and go to state 49
+
+    VariableDeclaration  go to state 50
+    Assignment           go to state 51
+    WhileLoop            go to state 52
+    Statement            go to state 53
+    IfStatement          go to state 54
+    ReturnStatement      go to state 55
+
+
+state 62
+
+   12 MethodDeclaration: METHOD IDENTIFIER Parameters COLON IDENTIFIER . IS Body END
+
+    IS  shift, and go to state 75
+
+
+state 63
+
+   24 Assignment: IDENTIFIER ASSIGN . Expression
+
+    IDENTIFIER      shift, and go to state 4
+    INTEGERLITERAL  shift, and go to state 35
+    REALLITERAL     shift, and go to state 36
+    BOOLEANLITERAL  shift, and go to state 37
+    THIS            shift, and go to state 38
+
+    ClassName   go to state 39
+    Expression  go to state 76
+    Primary     go to state 41
+
+
+state 64
+
+   25 WhileLoop: WHILE Expression . LOOP Body END
+
+    LOOP  shift, and go to state 77
+
+
+state 65
+
+   30 IfStatement: IF Expression . THEN Body ELSE Body END
+   31            | IF Expression . THEN Body END
+
+    THEN  shift, and go to state 78
+
+
+state 66
+
+   32 ReturnStatement: RETURN ReturnExpression .
+
+    $default  reduce using rule 32 (ReturnStatement)
+
+
+state 67
+
+   33 ReturnExpression: Expression .
+
+    $default  reduce using rule 33 (ReturnExpression)
+
+
+state 68
+
+   20 ParameterDeclaration: IDENTIFIER COLON ClassName .
+
+    $default  reduce using rule 20 (ParameterDeclaration)
+
+
+state 69
+
+   17 Parameters: LPAREN ParameterDeclaration ParameterDeclarations RPAREN .
+
+    $default  reduce using rule 17 (Parameters)
+
+
+state 70
+
+   18 ParameterDeclarations: ParameterDeclarations COLON . ParameterDeclaration
+
+    IDENTIFIER  shift, and go to state 32
+
+    ParameterDeclaration  go to state 79
+
+
+state 71
+
+   15 ConstructorDeclaration: THIS Parameters IS Body END .
+
+    $default  reduce using rule 15 (ConstructorDeclaration)
+
+
+state 72
+
+   36 ExpressionBody: ExpressionBody DOT . IDENTIFIER Arguments
+   37               | ExpressionBody DOT . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 80
+
+
+state 73
+
+   13 MethodDeclaration: METHOD IDENTIFIER COLON IDENTIFIER IS Body . END
+   21 Body: Body . VariableDeclaration
+   22     | Body . Statement
+
+    IDENTIFIER  shift, and go to state 45
+    END         shift, and go to state 81
+    VAR         shift, and go to state 14
+    WHILE       shift, and go to state 47
+    IF          shift, and go to state 48
+    RETURN      shift, and go to state 49
+
+    VariableDeclaration  go to state 50
+    Assignment           go to state 51
+    WhileLoop            go to state 52
+    Statement            go to state 53
+    IfStatement          go to state 54
+    ReturnStatement      go to state 55
+
+
+state 74
+
+   14 MethodDeclaration: METHOD IDENTIFIER Parameters IS Body END .
+
+    $default  reduce using rule 14 (MethodDeclaration)
+
+
+state 75
+
+   12 MethodDeclaration: METHOD IDENTIFIER Parameters COLON IDENTIFIER IS . Body END
+
+    $default  reduce using rule 23 (Body)
+
+    Body  go to state 82
+
+
+state 76
+
+   24 Assignment: IDENTIFIER ASSIGN Expression .
+
+    $default  reduce using rule 24 (Assignment)
+
+
+state 77
+
+   25 WhileLoop: WHILE Expression LOOP . Body END
+
+    $default  reduce using rule 23 (Body)
+
+    Body  go to state 83
+
+
+state 78
+
+   30 IfStatement: IF Expression THEN . Body ELSE Body END
+   31            | IF Expression THEN . Body END
+
+    $default  reduce using rule 23 (Body)
+
+    Body  go to state 84
+
+
+state 79
+
+   18 ParameterDeclarations: ParameterDeclarations COLON ParameterDeclaration .
+
+    $default  reduce using rule 18 (ParameterDeclarations)
+
+
+state 80
+
+   36 ExpressionBody: ExpressionBody DOT IDENTIFIER . Arguments
+   37               | ExpressionBody DOT IDENTIFIER .
+
+    LPAREN  shift, and go to state 85
+
+    $default  reduce using rule 37 (ExpressionBody)
+
+    Arguments  go to state 86
+
+
+state 81
+
+   13 MethodDeclaration: METHOD IDENTIFIER COLON IDENTIFIER IS Body END .
+
+    $default  reduce using rule 13 (MethodDeclaration)
+
+
+state 82
+
+   12 MethodDeclaration: METHOD IDENTIFIER Parameters COLON IDENTIFIER IS Body . END
+   21 Body: Body . VariableDeclaration
+   22     | Body . Statement
+
+    IDENTIFIER  shift, and go to state 45
+    END         shift, and go to state 87
+    VAR         shift, and go to state 14
+    WHILE       shift, and go to state 47
+    IF          shift, and go to state 48
+    RETURN      shift, and go to state 49
+
+    VariableDeclaration  go to state 50
+    Assignment           go to state 51
+    WhileLoop            go to state 52
+    Statement            go to state 53
+    IfStatement          go to state 54
+    ReturnStatement      go to state 55
+
+
+state 83
+
+   21 Body: Body . VariableDeclaration
+   22     | Body . Statement
+   25 WhileLoop: WHILE Expression LOOP Body . END
+
+    IDENTIFIER  shift, and go to state 45
+    END         shift, and go to state 88
+    VAR         shift, and go to state 14
+    WHILE       shift, and go to state 47
+    IF          shift, and go to state 48
+    RETURN      shift, and go to state 49
+
+    VariableDeclaration  go to state 50
+    Assignment           go to state 51
+    WhileLoop            go to state 52
+    Statement            go to state 53
+    IfStatement          go to state 54
+    ReturnStatement      go to state 55
+
+
+state 84
+
+   21 Body: Body . VariableDeclaration
+   22     | Body . Statement
+   30 IfStatement: IF Expression THEN Body . ELSE Body END
+   31            | IF Expression THEN Body . END
+
+    IDENTIFIER  shift, and go to state 45
+    END         shift, and go to state 89
+    VAR         shift, and go to state 14
+    WHILE       shift, and go to state 47
+    IF          shift, and go to state 48
+    ELSE        shift, and go to state 90
+    RETURN      shift, and go to state 49
+
+    VariableDeclaration  go to state 50
+    Assignment           go to state 51
+    WhileLoop            go to state 52
+    Statement            go to state 53
+    IfStatement          go to state 54
+    ReturnStatement      go to state 55
+
+
+state 85
+
+   39 Arguments: LPAREN . Expression ArgumentExpression RPAREN
+
+    IDENTIFIER      shift, and go to state 4
+    INTEGERLITERAL  shift, and go to state 35
+    REALLITERAL     shift, and go to state 36
+    BOOLEANLITERAL  shift, and go to state 37
+    THIS            shift, and go to state 38
+
+    ClassName   go to state 39
+    Expression  go to state 91
+    Primary     go to state 41
+
+
+state 86
+
+   36 ExpressionBody: ExpressionBody DOT IDENTIFIER Arguments .
+
+    $default  reduce using rule 36 (ExpressionBody)
+
+
+state 87
+
+   12 MethodDeclaration: METHOD IDENTIFIER Parameters COLON IDENTIFIER IS Body END .
+
+    $default  reduce using rule 12 (MethodDeclaration)
+
+
+state 88
+
+   25 WhileLoop: WHILE Expression LOOP Body END .
+
+    $default  reduce using rule 25 (WhileLoop)
+
+
+state 89
+
+   31 IfStatement: IF Expression THEN Body END .
+
+    $default  reduce using rule 31 (IfStatement)
+
+
+state 90
+
+   30 IfStatement: IF Expression THEN Body ELSE . Body END
+
+    $default  reduce using rule 23 (Body)
+
+    Body  go to state 92
+
+
+state 91
+
+   39 Arguments: LPAREN Expression . ArgumentExpression RPAREN
+
+    $default  reduce using rule 41 (ArgumentExpression)
+
+    ArgumentExpression  go to state 93
+
+
+state 92
+
+   21 Body: Body . VariableDeclaration
+   22     | Body . Statement
+   30 IfStatement: IF Expression THEN Body ELSE Body . END
+
+    IDENTIFIER  shift, and go to state 45
+    END         shift, and go to state 94
+    VAR         shift, and go to state 14
+    WHILE       shift, and go to state 47
+    IF          shift, and go to state 48
+    RETURN      shift, and go to state 49
+
+    VariableDeclaration  go to state 50
+    Assignment           go to state 51
+    WhileLoop            go to state 52
+    Statement            go to state 53
+    IfStatement          go to state 54
+    ReturnStatement      go to state 55
+
+
+state 93
+
+   39 Arguments: LPAREN Expression ArgumentExpression . RPAREN
+   40 ArgumentExpression: ArgumentExpression . COMMA Expression
+
+    RPAREN  shift, and go to state 95
+    COMMA   shift, and go to state 96
+
+
+state 94
+
+   30 IfStatement: IF Expression THEN Body ELSE Body END .
+
+    $default  reduce using rule 30 (IfStatement)
+
+
+state 95
+
+   39 Arguments: LPAREN Expression ArgumentExpression RPAREN .
+
+    $default  reduce using rule 39 (Arguments)
+
+
+state 96
+
+   40 ArgumentExpression: ArgumentExpression COMMA . Expression
+
+    IDENTIFIER      shift, and go to state 4
+    INTEGERLITERAL  shift, and go to state 35
+    REALLITERAL     shift, and go to state 36
+    BOOLEANLITERAL  shift, and go to state 37
+    THIS            shift, and go to state 38
+
+    ClassName   go to state 39
+    Expression  go to state 97
+    Primary     go to state 41
+
+
+state 97
+
+   40 ArgumentExpression: ArgumentExpression COMMA Expression .
+
+    $default  reduce using rule 40 (ArgumentExpression)
