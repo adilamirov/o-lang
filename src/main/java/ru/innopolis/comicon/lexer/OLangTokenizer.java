@@ -2,6 +2,7 @@ package ru.innopolis.comicon.lexer;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StreamTokenizer;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,8 +44,8 @@ public class OLangTokenizer implements java_cup.runtime.Scanner {
     public static final int TT_WORD = -3;
     public static final int TT_NOTHING = -4;
 
-    public static final int TT_LITERAL = -5;
-    public static final int TT_SEMICOLON = -6;
+    public static final int TT_IDENTIFIER = -5;
+    public static final int TT_COLON = -6;
     public static final int TT_ASSIGN = -7;
     public static final int TT_DOT = -8;
     public static final int TT_COMMA = -9;
@@ -214,9 +215,9 @@ public class OLangTokenizer implements java_cup.runtime.Scanner {
      *
      * @return     the value of the {@code ttype} field.
      * @exception  IOException  if an I/O error occurs.
-     * @see        java.io.StreamTokenizer#nval
-     * @see        java.io.StreamTokenizer#sval
-     * @see        java.io.StreamTokenizer#ttype
+     * @see        StreamTokenizer#nval
+     * @see        StreamTokenizer#sval
+     * @see        StreamTokenizer#ttype
      */
 
     public Symbol next_token() throws java.lang.Exception {
@@ -327,7 +328,7 @@ public class OLangTokenizer implements java_cup.runtime.Scanner {
             if (KEYWORDS.containsKey(sval)) {
                 return ttype = KEYWORDS.get(sval);
             }
-            return ttype = TT_LITERAL;
+            return ttype = TT_IDENTIFIER;
         }
 
         if (BRACKETS.containsKey((char) c)) {
@@ -338,7 +339,7 @@ public class OLangTokenizer implements java_cup.runtime.Scanner {
             c = this.read();
             if (c != '=') {
                 peekc = c;
-                return ttype = TT_SEMICOLON;
+                return ttype = TT_COLON;
             }
             return ttype = TT_ASSIGN;
         }
@@ -395,11 +396,11 @@ public class OLangTokenizer implements java_cup.runtime.Scanner {
             case TT_NOTHING:
                 ret = "NOTHING";
                 break;
-            case TT_LITERAL:
+            case TT_IDENTIFIER:
                 ret="TT_LITERAL";
                 break;
-            case TT_SEMICOLON:
-                ret="TT_SEMICOLON";
+            case TT_COLON:
+                ret="TT_COLON";
                 break;
             case TT_ASSIGN:
                 ret="TT_ASSIGN";
