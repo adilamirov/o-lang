@@ -145,7 +145,7 @@ public class OLangTokenizer {
      * are white space characters. White space characters serve only to
      * separate tokens in the input stream.
      *
-     * <p>Any other attribute settings for the characters in the specified
+     * <value>Any other attribute settings for the characters in the specified
      * range are cleared.
      *
      * @param   low   the low end of the range.
@@ -167,9 +167,9 @@ public class OLangTokenizer {
      * <blockquote><pre>
      *      0 1 2 3 4 5 6 7 8 9 . -
      * </pre></blockquote>
-     * <p>
+     * <value>
      * has the "numeric" attribute.
-     * <p>
+     * <value>
      * When the parser encounters a word token that has the format of a
      * double precision floating-point number, it treats the token as a
      * number rather than a word, by setting the {@code ttype}
@@ -199,7 +199,7 @@ public class OLangTokenizer {
      * field. Additional information about the token may be in the
      * {@code nval} field or the {@code sval} field of this
      * tokenizer.
-     * <p>
+     * <value>
      * Typical clients of this
      * class first set up the syntax tables and then sit in a loop
      * calling nextToken to parse successive tokens until TT_EOF
@@ -355,7 +355,7 @@ public class OLangTokenizer {
      * Returns the string representation of the current stream token and
      * the line number it occurs on.
      *
-     * <p>The precise string returned is unspecified, although the following
+     * <value>The precise string returned is unspecified, although the following
      * example can be considered typical:
      *
      * <blockquote><pre>Token['a'], line 10</pre></blockquote>
