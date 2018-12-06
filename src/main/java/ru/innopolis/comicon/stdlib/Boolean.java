@@ -7,7 +7,7 @@ public class Boolean {
     public Boolean(Boolean p) {
         this.value = p.value;
     }
-    Boolean(boolean p) {
+    public Boolean(boolean p) {
         this.value = p;
     }
 

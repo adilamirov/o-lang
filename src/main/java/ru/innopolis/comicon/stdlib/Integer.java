@@ -1,7 +1,7 @@
 package ru.innopolis.comicon.stdlib;
 
 public class Integer {
-    private int value;
+    public int value;
 
     //Constructors
     public Integer(Integer p) {
@@ -27,11 +27,11 @@ public class Integer {
 
     //Conversions
     public Real toReal() {
-        return new Real(value);
+        return new Real((double)this.value);
     }
 
     public Boolean toBoolean() {
-        return new Boolean(value);
+        return new Boolean(this.value != 0);
     }
 
     //Unary operators
@@ -82,7 +82,7 @@ public class Integer {
     }
 
     public Boolean Less(Real p) {
-        return new Boolean(this.value < p.toInteger.value);
+        return new Boolean(this.value < p.toInteger().value);
     }
 
     public Boolean LessEqual(Integer p) {
@@ -90,7 +90,7 @@ public class Integer {
     }
 
     public Boolean LessEqual(Real p) {
-        return new Boolean(this.value <= p.toInteger.value);
+        return new Boolean(this.value <= p.toInteger().value);
     }
 
     public Boolean Greater(Integer p) {
@@ -98,7 +98,7 @@ public class Integer {
     }
 
     public Boolean Greater(Real p) {
-        return new Boolean(this.value > p.toInteger.value);
+        return new Boolean(this.value > p.toInteger().value);
     }
 
     public Boolean GreaterEqual(Integer p) {
@@ -106,7 +106,7 @@ public class Integer {
     }
 
     public Boolean GreaterEqual(Real p) {
-        return new Boolean(this.value >= p.toInteger.value);
+        return new Boolean(this.value >= p.toInteger().value);
     }
 
     public Boolean Equal(Integer p) {
@@ -114,6 +114,6 @@ public class Integer {
     }
 
     public Boolean Equal(Real p) {
-        return new Boolean(this.value = p.toInteger.value);
+        return new Boolean(this.value == p.toInteger().value);
     }
 }
