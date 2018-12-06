@@ -11,7 +11,7 @@ public class Real {
     }
 
     private Real(Integer temp) {
-        this.value = temp.toReal();
+        this.value = temp.toReal().value;
     }
 
     private Real(Real temp) {
@@ -32,13 +32,13 @@ public class Real {
     }
 
     public Integer toInteger() {
-        return new Integer(int(this.value));
+        return new Integer((int)this.value);
     }
 
     public Real UnaryMinus() {
         return new Real(this.value - 1);
     }
-
+public
     public Real Plus(Real temp) {
         return new Real(this.value + temp.value);
     }
@@ -60,7 +60,7 @@ public class Real {
     }
 
     public Real Mult(Integer temp) {
-        this.value * temp.toReal().value;
+        return new Real(this.value * temp.toReal().value);
     }
 
     public Real Div(Real temp) {
