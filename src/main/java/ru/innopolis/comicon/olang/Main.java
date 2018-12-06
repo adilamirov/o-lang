@@ -1,22 +1,21 @@
 package ru.innopolis.comicon.olang;
 
 import ru.innopolis.comicon.lexer.OLangTokenizer;
+import ru.innopolis.comicon.parser.Parser;
 
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
-        Reader r = new FileReader("samples/test.ol");
-        OLangTokenizer t = new OLangTokenizer(r);
-
-        while (t.ttype != OLangTokenizer.TT_EOF) {
-            t.nextToken();
-            System.out.println(t);
-        }
-
+    public static void main(String[] args) throws Exception {
+//        OLangTokenizer t= new OLangTokenizer(new FileReader("o-lang/samples/Test2.ol"));
+//        while (t.ttype != OLangTokenizer.TT_EOF) {
+//            t.next_token();
+//            System.out.println(t);
+//        }
+        Parser p = new Parser(new OLangTokenizer(new FileReader("o-lang/samples/Test2.ol")));
+//        p.parse();
+//        System.out.println(p.parse());
+        p.debug_parse();
     }
-
 }

@@ -38,7 +38,7 @@
                 </executions>
                 <configuration>
                     <className>Parser</className>
-                    <symbolsName>MySymbolsClassName</symbolsName>
+                    <symbolsName>MySymbol</symbolsName>
                 </configuration>
             </plugin>
             <plugin>
