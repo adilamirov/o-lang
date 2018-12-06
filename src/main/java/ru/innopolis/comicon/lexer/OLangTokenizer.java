@@ -1,12 +1,16 @@
 package ru.innopolis.comicon.lexer;
 
+import java_cup.runtime.ComplexSymbolFactory;
+import java_cup.runtime.Symbol;
+import java_cup.runtime.SymbolFactory;
+import ru.innopolis.comicon.parser.MySymbol;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StreamTokenizer;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java_cup.runtime.*;
 
 public class OLangTokenizer implements java_cup.runtime.Scanner {
 
@@ -37,7 +41,7 @@ public class OLangTokenizer implements java_cup.runtime.Scanner {
     private static final byte CT_COMMENT = 16;
 
     public int ttype = TT_NOTHING;
-    public static final int TT_EOF = -1;
+    public static final int TT_EOF = -228;
     public static final int TT_EOL = '\n';
 
     public static final int TT_NUMBER = -2;
@@ -219,12 +223,16 @@ public class OLangTokenizer implements java_cup.runtime.Scanner {
      * @see        StreamTokenizer#sval
      * @see        StreamTokenizer#ttype
      */
-
+    private SymbolFactory sf = new ComplexSymbolFactory();
     public Symbol next_token() throws java.lang.Exception {
-        return new Symbol(this.nextToken());
+        this.nextToken();
+        if (this.ttype == TT_IDENTIFIER) {
+            return sf.newSymbol(this.toString(), this.toMySymbol(), sval);
+        }
+        return sf.newSymbol(this.toString(), this.toMySymbol());
     }
 
-    public int nextToken() throws IOException {
+    private int nextToken() throws IOException {
         byte ct[] = ctype;
         sval = null;
 
@@ -397,7 +405,7 @@ public class OLangTokenizer implements java_cup.runtime.Scanner {
                 ret = "NOTHING";
                 break;
             case TT_IDENTIFIER:
-                ret="TT_LITERAL";
+                ret="IDENTIFIER";
                 break;
             case TT_COLON:
                 ret="TT_COLON";
@@ -412,16 +420,16 @@ public class OLangTokenizer implements java_cup.runtime.Scanner {
                 ret="TT_COMMA";
                 break;
             case TT_KW_CLASS:
-                ret="TT_KW_CLASS";
+                ret="CLASS";
                 break;
             case TT_KW_EXTENDS:
                 ret="TT_KW_EXTENDS";
                 break;
             case TT_KW_IS:
-                ret="TT_KW_IS";
+                ret="IS";
                 break;
             case TT_KW_END:
-                ret="TT_KW_END";
+                ret="END";
                 break;
             case TT_KW_VAR:
                 ret="TT_KW_VAR";
@@ -488,7 +496,72 @@ public class OLangTokenizer implements java_cup.runtime.Scanner {
                 break;
             }
         }
-        return "Token[" + ret + "], line " + LINENO;
+        return ret;
+    }
+
+    public int toMySymbol() {
+        String ret;
+        switch (ttype) {
+            case TT_EOF:
+                return MySymbol.EOF;
+            case TT_EOL:
+                return -1;
+            case TT_WORD:
+                return -1;
+            case TT_NUMBER:
+                return MySymbol.INTEGERLITERAL;
+            case TT_NOTHING:
+                return -1;
+            case TT_IDENTIFIER:
+                return MySymbol.IDENTIFIER;
+            case TT_COLON:
+                return MySymbol.COLON;
+            case TT_ASSIGN:
+                return MySymbol.ASSIGN;
+            case TT_DOT:
+                return MySymbol.DOT;
+            case TT_COMMA:
+                return MySymbol.COMMA;
+            case TT_KW_CLASS:
+                return MySymbol.CLASS;
+            case TT_KW_EXTENDS:
+                return MySymbol.EXTENDS;
+            case TT_KW_IS:
+                return MySymbol.IS;
+            case TT_KW_END:
+                return MySymbol.END;
+            case TT_KW_VAR:
+                return MySymbol.VAR;
+            case TT_KW_METHOD:
+                return MySymbol.METHOD;
+            case TT_KW_THIS:
+                return MySymbol.THIS;
+            case TT_KW_WHILE:
+                return MySymbol.WHILE;
+            case TT_KW_LOOP:
+                return MySymbol.LOOP;
+            case TT_KW_IF:
+                return MySymbol.IF;
+            case TT_KW_THEN:
+                return MySymbol.THEN;
+            case TT_KW_ELSE:
+                return MySymbol.ELSE;
+            case TT_KW_RETURN:
+                return MySymbol.RETURN;
+            case TT_BRACKET_ROUND_OP:
+                return MySymbol.LPAREN;
+            case TT_BRACKET_ROUND_CL:
+                return MySymbol.RPAREN;
+            case TT_BRACKET_SQUARE_OP:
+                return MySymbol.LBRACKET;
+            case TT_BRACKET_SQUARE_CL:
+                return MySymbol.RBRCKET;
+            case TT_MINUS_SIGN:
+                return -1;
+            case TT_PLUS_SIGN:
+                return -1;
+        }
+        return MySymbol.EOF;
     }
 
 }

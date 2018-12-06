@@ -1,23 +1,14 @@
 package cup;
 
 import java_cup.runtime.*;
-import ru.innopolis.comicon.lexer.OLangTokenizer;
 
-parser code {:
-    // Connect this parser to a scanner!
-    OLangTokenizer s;
-    Parser(OLangTokenizer s){ this.s=s; }
-:}
-
-
-init with {: s.init(); :};
-scan with {: return s.next_token(); :};
-
-terminal IDENTIFIER;
-terminal INTEGERLITERAL, REALLITERAL, BOOLEANLITERAL;
-terminal CLASS, EXTENDS, IS, END, VAR, METHOD, THIS, WHILE, LOOP, IF, THEN, ELSE, RETURN;
-terminal LPAREN, RPAREN, LBRACKET, RBRCKET, COMMA, DOT, COLON;
-terminal ASSIGN;
+terminal CLASS, EXTENDS, IS, END, VAR, METHOD, THIS, WHILE, LOOP, IF,
+         THEN, ELSE, RETURN, LPAREN, RPAREN, LBRACKET, RBRCKET, COMMA,
+         DOT, COLON, ASSIGN;
+terminal String IDENTIFIER;
+terminal String INTEGERLITERAL;
+terminal String REALLITERAL;
+terminal String BOOLEANLITERAL;
 
 nonterminal Program;
 nonterminal ClassDeclaration, MemeberDeclaration, MemeberDeclarations;
@@ -31,119 +22,132 @@ nonterminal WhileLoop, IfStatement, ReturnStatement;
 nonterminal ExpressionBody;
 nonterminal Arguments;
 nonterminal ArgumentExpression;
-nonterminal Primary;
+nonterminal String Primary;
 
 precedence left LPAREN, RPAREN;
 precedence right RETURN;
 
 Program ::=
-  ClassDeclaration Program
-|
+  Program ClassDeclaration:cd    {: System.out.print(cd); :}
+| ClassDeclaration:cd            {: System.out.print(cd); :}
 ;
 
 ClassDeclaration ::=
-  CLASS IDENTIFIER EXTENDS IDENTIFIER IS MemeberDeclarations END
-| CLASS IDENTIFIER IS MemeberDeclarations END
-;
+  CLASS IDENTIFIER:class_id EXTENDS IDENTIFIER:extends_id IS MemeberDeclarations:memdec END  {:
+  RESULT = "public class " + class_id + " extends " + extends_id + " { " + memdec + "}"; :}
+| CLASS IDENTIFIER:class_name IS MemeberDeclarations:members END  {:
+    RESULT = "public class " + class_name + " {\n" + members + "}";
+:};
 
 MemeberDeclarations ::=
-  MemeberDeclaration MemeberDeclarations
-|
+  MemeberDeclaration:member MemeberDeclarations:members
+    {: RESULT = member + "\n" + members; :}
+|   {: RESULT = ""; :}
 ;
 
-MemeberDeclarations ::=
-  VariableDeclaration
-| MethodDeclaration
-| ConstructorDeclaration
+MemeberDeclaration ::=
+  VariableDeclaration:var           {: RESULT = var; :}
+| MethodDeclaration:method          {: RESULT = method; :}
+| ConstructorDeclaration:cnstrctr   {: RESULT = cnstrctr; :}
 ;
 
 VariableDeclaration ::=
-  VAR IDENTIFIER COLON Expression
+  VAR IDENTIFIER:name COLON IDENTIFIER:type   {: RESULT = "public " + type + " " + name + "; "; :}
 ;
 
 
 MethodDeclaration ::=
-  METHOD IDENTIFIER Parameters COLON IDENTIFIER IS Body END
-| METHOD IDENTIFIER COLON IDENTIFIER IS Body END
-| METHOD IDENTIFIER Parameters IS Body END
+  METHOD IDENTIFIER:name Parameters:args COLON IDENTIFIER:return_type IS Body:body END {:
+    RESULT = "public " + return_type + " " + name + args + " { " + body + "}";
+  :}
+| METHOD IDENTIFIER:name COLON IDENTIFIER:return_type IS Body:body END {:
+    RESULT = "public " + return_type + name + " () { " + body + "}";
+  :}
+| METHOD IDENTIFIER:name Parameters:args IS Body:body END {:
+    RESULT = "public void " + name + args + " { " + body + "}";
+  :}
 ;
 
 
 ConstructorDeclaration ::=
-  THIS Parameters IS Body END
-| THIS IS Body END
+  THIS Parameters:parameters IS Body:body END   {: RESULT = "???"; :}
+| THIS IS Body :body END                        {: RESULT = "???"; :}
 ;
 
 
 Parameters ::=
-  LPAREN ParameterDeclaration ParameterDeclarations RPAREN
+  LPAREN ParameterDeclaration:param ParameterDeclarations:params RPAREN {: RESULT = "(" + param + params + ")"; :}
 ;
 
 
 ParameterDeclarations ::=
-  ParameterDeclarations COLON ParameterDeclaration
-|
+  ParameterDeclarations:params COMMA ParameterDeclaration:param     {: RESULT = params + "," + param; :}
+|                                                                   {: RESULT = "" ;:}
 ;
 
 
 ParameterDeclaration ::=
-  IDENTIFIER COLON IDENTIFIER
+  IDENTIFIER:name COLON IDENTIFIER:type   {: RESULT = name + " " + type ;:}
 ;
 
 
 Body ::=
-  Body VariableDeclaration
-| Body Statement
-|
+  Body:body VariableDeclaration:var {: RESULT = body + "\n" + var ;:}
+| Body:body Statement:statement     {: RESULT = body + "\n" + statement;:}
+|                                   {: RESULT = ""  ;:}
 ;
 
 Statement ::=
-  Assignment
-| WhileLoop
-| IfStatement
-| ReturnStatement
+  Assignment:assignment             {: RESULT = assignment + "\n"; :}
+| WhileLoop:whileloop               {: RESULT = whileloop + "\n" ; :}
+| IfStatement:ifstatement           {: RESULT = ifstatement + "\n"; :}
+| ReturnStatement:returnstatement   {: RESULT = returnstatement + "\n"; :}
 ;
 
 Assignment ::=
-  IDENTIFIER ASSIGN Expression
+  IDENTIFIER:identifier ASSIGN Expression:expr      {: RESULT = identifier + " = " + expr + ";"; :}
 ;
 
 WhileLoop ::=
-  WHILE Expression LOOP Body END
+  WHILE Expression:expr LOOP Body:body END    {: RESULT = "while ( " + expr + " ) {\n" + body + "}"; :}
  ;
 
 IfStatement ::=
-  IF Expression THEN Body ELSE Body END
-| IF Expression THEN Body END ;
+  IF Expression:expr THEN Body:body_then ELSE Body:body_else END  {:
+  RESULT = "if ( " + expr + ") { " + body_then + "} else { " + body_else + "}" ;
+  :}
+| IF Expression:expr THEN Body:body END {:
+RESULT = "if ( " + expr + " ) { " + body + "}"  ;:}
+;
 
 ReturnStatement ::=
-  RETURN
-| RETURN Expression
+  RETURN                    {: RESULT = "return;"  ;:}
+| RETURN Expression:expr    {: RESULT = "return" + expr + ";"  ;:}
 ;
 
 Expression ::=
-  Primary ExpressionBody
+  Primary:prim ExpressionBody:body    {: RESULT = prim + body ;:}
 ;
 
 ExpressionBody ::=
-  ExpressionBody DOT IDENTIFIER Arguments
-| ExpressionBody DOT IDENTIFIER
-|
+  ExpressionBody:body DOT IDENTIFIER:id Arguments:arg    {: RESULT = body + "." + id + arg;:}
+| ExpressionBody:body DOT IDENTIFIER:id                  {: RESULT = body + "." + id ;:}
+|                                                        {: RESULT = ""  ;:}
 ;
 
 Arguments ::=
-  LPAREN Expression ArgumentExpression RPAREN
+  LPAREN Expression:exp ArgumentExpression:aexp RPAREN   {: RESULT = "(" + exp + aexp + ")" ;:}
 ;
 
 ArgumentExpression ::=
-  ArgumentExpression COMMA Expression
-|
+  ArgumentExpression:aexp COMMA Expression:exp  {: RESULT = aexp + ", " + exp  ;:}
+|                                               {: RESULT = ""  ;:}
 ;
 
 Primary ::=
-  INTEGERLITERAL
-| REALLITERAL
-| BOOLEANLITERAL
-| THIS
-| IDENTIFIER
+  INTEGERLITERAL:integer    {: RESULT = integer ;:}
+| REALLITERAL:real          {: RESULT = real  ;:}
+| BOOLEANLITERAL:bool       {: RESULT = bool  ;:}
+| THIS                      {: RESULT = "this";:}
+| IDENTIFIER:id             {: RESULT = id  ;:}
 ;
