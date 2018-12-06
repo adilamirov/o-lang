@@ -1,5 +1,6 @@
 package translation_test;
 
+
 public class JTest1 {
     public Integer a;
 
