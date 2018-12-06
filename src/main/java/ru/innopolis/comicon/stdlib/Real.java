@@ -6,15 +6,15 @@ public class Real {
     public double value;
 
     // Constructors
-    private Real(double temp) {
+    public Real(double temp) {
         this.value = temp;
     }
 
-    private Real(Integer temp) {
-        this.value = temp.toReal();
+    public Real(Integer temp) {
+        this.value = temp.toReal().value;
     }
 
-    private Real(Real temp) {
+    public Real(Real temp) {
         this.value = temp.value;
     }
 
@@ -32,7 +32,7 @@ public class Real {
     }
 
     public Integer toInteger() {
-        return new Integer(int(this.value));
+        return new Integer((int)this.value);
     }
 
     public Real UnaryMinus() {
@@ -60,7 +60,7 @@ public class Real {
     }
 
     public Real Mult(Integer temp) {
-        this.value * temp.toReal().value;
+        return new Real(this.value * temp.toReal().value);
     }
 
     public Real Div(Real temp) {
