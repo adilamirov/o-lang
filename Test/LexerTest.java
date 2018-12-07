@@ -3,7 +3,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 
 import ru.innopolis.comicon.lexer.OLangTokenizer;
 
@@ -76,6 +76,36 @@ class LexerTest {
         assertEquals(lex.nextToken(), OLangTokenizer.TT_IDENTIFIER);
         assertEquals(lex.nextToken(), OLangTokenizer.TT_ASSIGN);
         assertEquals(lex.nextToken(), OLangTokenizer.TT_NUMBER);
+        assertEquals(lex.nextToken(), OLangTokenizer.TT_KW_END);
+
+        reader = new StringReader("class TututuGrr extends DjT is end");
+        lex = new OLangTokenizer(reader);
+        assertEquals(lex.nextToken(), OLangTokenizer.TT_KW_CLASS);
+        assertEquals(lex.nextToken(), OLangTokenizer.TT_IDENTIFIER);
+        assertEquals(lex.nextToken(), OLangTokenizer.TT_KW_EXTENDS);
+        assertEquals(lex.nextToken(), OLangTokenizer.TT_IDENTIFIER);
+        assertEquals(lex.nextToken(), OLangTokenizer.TT_KW_IS);
+        assertEquals(lex.nextToken(), OLangTokenizer.TT_KW_END);
+
+        reader = new StringReader("this(grgr: Integer)");
+        lex = new OLangTokenizer(reader);
+        assertEquals(lex.nextToken(), OLangTokenizer.TT_KW_THIS);
+        assertEquals(lex.nextToken(), OLangTokenizer.TT_BRACKET_ROUND_OP);
+        assertEquals(lex.nextToken(), OLangTokenizer.TT_IDENTIFIER);
+        assertEquals(lex.nextToken(), OLangTokenizer.TT_COLON);
+        assertEquals(lex.nextToken(), OLangTokenizer.TT_IDENTIFIER);
+        assertEquals(lex.nextToken(), OLangTokenizer.TT_BRACKET_ROUND_CL);
+
+        reader = new StringReader("method toString(str: current) is end");
+        lex = new OLangTokenizer(reader);
+        assertEquals(lex.nextToken(), OLangTokenizer.TT_KW_METHOD);
+        assertEquals(lex.nextToken(), OLangTokenizer.TT_IDENTIFIER);
+        assertEquals(lex.nextToken(), OLangTokenizer.TT_BRACKET_ROUND_OP);
+        assertEquals(lex.nextToken(), OLangTokenizer.TT_IDENTIFIER);
+        assertEquals(lex.nextToken(), OLangTokenizer.TT_COLON);
+        assertEquals(lex.nextToken(), OLangTokenizer.TT_IDENTIFIER);
+        assertEquals(lex.nextToken(), OLangTokenizer.TT_BRACKET_ROUND_CL);
+        assertEquals(lex.nextToken(), OLangTokenizer.TT_KW_IS);
         assertEquals(lex.nextToken(), OLangTokenizer.TT_KW_END);
 
 
