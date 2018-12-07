@@ -11,14 +11,18 @@ import java.util.jar.Manifest;
 public class JarCreator {
     public static void run() throws IOException
     {
-        String file1ToCompile = "./compilation/First.java";
         String file2ToCompile = "./compilation/Main.java";
+        String file3ToCompile = "./src/main/java/ru/innopolis/comicon/stdlib/Boolean.java";
+        String file4ToCompile = "./src/main/java/ru/innopolis/comicon/stdlib/Integer.java";
+        String file5ToCompile = "./src/main/java/ru/innopolis/comicon/stdlib/Real.java";
 
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
 
         int compilationResult = compiler.run(null, null, null,
-                file1ToCompile,
-                file2ToCompile
+                file2ToCompile,
+                file3ToCompile,
+                file4ToCompile,
+                file5ToCompile
         );
 
         if (compilationResult == 0) {
@@ -35,8 +39,10 @@ public class JarCreator {
         manifest.getMainAttributes().put(Attributes.Name.CLASS_PATH, "./compilation/");
         JarOutputStream target = new JarOutputStream(new FileOutputStream("output.jar"), manifest);
 
-        add(new File("./compilation/First.class"), target);
         add(new File("./compilation/Main.class"), target);
+        add(new File("./src/main/java/ru/innopolis/comicon/stdlib/Boolean.class"), target);
+        add(new File("./src/main/java/ru/innopolis/comicon/stdlib/Integer.class"), target);
+        add(new File("./src/main/java/ru/innopolis/comicon/stdlib/Real.class"), target);
 
         target.close();
     }
