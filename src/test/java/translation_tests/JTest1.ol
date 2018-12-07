@@ -1,10 +1,10 @@
 class JTest1 is
     var a : Integer
 
-    method Square(temp: Integer) : Integer is
+    method Square(temp: Integer) is
         var result : Integer(temp)
         result := result.Mult(temp)
-        return result
+        return
     end
 
     method main() is

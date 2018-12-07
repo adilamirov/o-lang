@@ -1,53 +1,17 @@
-class JTest2 extends JTest1 is
-    var value : Integer
+class JTest is
 
+    var a : Integer
 
-    this(temp: Real) is
-        this.value := temp.toInteger(temp)
+    method JTest() is
+        var x : Integer(22)
+        a.Plus(123)
     end
 
-
-    this(temp: Integer) is
-        this.value := temp
+    method JTest1(x : Integer) is
+            a.Plus(x)
     end
 
-
-    method SquareMinusOne(temp: Integer) : Integer is
-        var result: Integer
-        var result := this.Square(temp)
-        result := result.Minus(1)
-        return result
-    end
-
-
-    method SumFromOneToN(n: Integer) : Integer is
-        var result : Integer(1)
-        var i : Integer(1)
-        while i.LessEqual(n) loop
-            result := result.Plus(i)
-            i := i.Plus(1)
-        end
-    end
-
-    method SumOfArray (arr : Array[Real]) : Real is
-        var i : Integer(0)
-        var result : Real(0)
-        while i.Less(arr.Size) loop
-            result := result.Plus(arr.get(i))
-        end
-        return result
+    method somethingseomyhin(x : Integer, y : Real) is
+        var s : Integer(23)
     end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
