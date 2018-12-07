@@ -1,6 +1,5 @@
 package ru.innopolis.comicon.olang;
 
-import java_cup.runtime.Symbol;
 import ru.innopolis.comicon.lexer.OLangTokenizer;
 import ru.innopolis.comicon.parser.Parser;
 
@@ -27,11 +26,7 @@ public class Main {
 
         Parser p = new Parser(new OLangTokenizer(new FileReader("samples/Test2.ol")));
         writer = new BufferedWriter(new FileWriter("compilation/First.java"));
-        Symbol sym = p.parse();
-        if (sym.value == null) {
-            return;
-        }
-        writer.write(sym.value.toString());
+        writer.write(p.parse().value.toString());
         writer.close();
 
 //        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();

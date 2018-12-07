@@ -4,12 +4,7 @@ import java_cup.runtime.*;
 
 
 parser code {:
-    final String LINE() {
-        if (this.cur_token == null || ((ComplexSymbolFactory.ComplexSymbol)this.cur_token).xleft == null) {
-            return "unknown";
-        }
-        return Integer.toString(((ComplexSymbolFactory.ComplexSymbol)this.cur_token).xleft.getLine());
-    }
+    public static String CLASS_NAME;
 :}
 
 terminal CLASS, EXTENDS, IS, END, VAR, METHOD, THIS, WHILE, LOOP, IF,
@@ -37,19 +32,17 @@ nonterminal String Primary;
 precedence left LPAREN, RPAREN;
 precedence right RETURN;
 
-start with Program;
-
 Program ::=
-  Program:program ClassDeclaration:cd   {: RESULT = program + "" + cd; :}
-| ClassDeclaration:cd                   {: RESULT = cd + ""; :}
-| error                                 {: RESULT = null; System.out.println("Compilation error"); :}
+  Program:program ClassDeclaration:cd   {: RESULT = program + "" + cd; System.out.print(program + "" + cd); :}
+| ClassDeclaration:cd                   {: RESULT = cd + ""; System.out.print("" + cd); :}
 ;
 
 
 
 MemeberDeclarations ::=
-  MemeberDeclaration:member MemeberDeclarations:members {: RESULT = member + "\n" + members; :}
-|                                                       {: RESULT = ""; :}
+  MemeberDeclaration:member MemeberDeclarations:members
+    {: RESULT = member + "\n" + members; :}
+|   {: RESULT = ""; :}
 ;
 
 MemeberDeclaration ::=
@@ -67,7 +60,6 @@ VariableDeclaration ::=
         RESULT = "public " + stype + " " + name + " = new " + type + "();";
     }
   :}
-| VAR error                         {: System.out.println("Error in variable declaration in class"); :}
 ;
 
 VariableDeclarationInMethod ::=
@@ -79,16 +71,6 @@ VariableDeclarationInMethod ::=
         RESULT = stype + " " + name + " = new " + type + "();";
     }
   :}
-| VAR error                                     {:
-    System.out.println("Error in variable declaration in method around line #" + parser.LINE());
-    RESULT = null;
-    parser._done_parsing = true;
-:}
-| VAR IDENTIFIER:name COLON error                    {:
-                                                    System.out.println("Error in variable declaration in method around line #" + parser.LINE());
-                                                    RESULT = null;
-                                                    parser._done_parsing = true;
-                                                :}
 ;
 
 MethodDeclaration ::=
@@ -101,11 +83,6 @@ MethodDeclaration ::=
 | METHOD IDENTIFIER:name Parameters:args IS Body:body END {:
     RESULT = "public void " + name + args + " { " + body + "}";
   :}
-| METHOD error {:
-    System.out.println("Error in method declaration around line #" + parser.LINE());
-    RESULT = null;
-    parser._done_parsing = true;
-:}
 ;
 
 
@@ -117,19 +94,12 @@ ClassDeclaration ::=
 | CLASS IDENTIFIER:class_id IS MemeberDeclarations:members END  {:
     members = members.toString().replaceAll("<CLASSNAME>", class_id);
     RESULT = "public class " + class_id + " {\n" + members + "}";
-:}
-| CLASS error               {:System.out.println("Error in class declaration around line #" + parser.LINE());
-                                                                                RESULT = null;
-                                                                                parser._done_parsing = true; :}
-;
+:};
 
 
 ConstructorDeclaration ::=
   THIS Parameters:parameters IS Body:body END   {: RESULT = "public " + "<CLASSNAME>" + parameters + "{\n" + body + "\n}"; :}
 | THIS IS Body :body END                        {: RESULT = "public " + "<CLASSNAME>" + "()" + "{\n" + body + "\n}"; :}
-| THIS error                                    {: System.out.println("Error in Constructor Declaration around line #" + parser.LINE());
-                                                                                                 RESULT = null;
-                                                                                                 parser._done_parsing = true; :}
 ;
 
 
@@ -146,16 +116,13 @@ ParameterDeclarations ::=
 
 ParameterDeclaration ::=
   IDENTIFIER:name COLON IDENTIFIER:type   {: RESULT = type + " " + name ;:}
-| COLON error                             {: System.out.println("Error in parameter declaration  around line #" + parser.LINE());
-                                                                                                    RESULT = null;
-                                                                                                    parser._done_parsing = true; :}
 ;
 
 
 Body ::=
   Body:body VariableDeclarationInMethod:var {: RESULT = body + "\n" + var ;:}
 | Body:body Statement:statement     {: RESULT = body + "\n" + statement;:}
-|                                   {: RESULT = ""; :}
+|                                   {: RESULT = ""  ;:}
 ;
 
 Statement ::=
@@ -168,16 +135,10 @@ Statement ::=
 
 Assignment ::=
   IDENTIFIER:identifier ASSIGN Expression:expr      {: RESULT = identifier + " = " + expr + ";"; :}
-| error ASSIGN                                      {: System.out.println("Error in Assignment around line #" + parser.LINE());
-                                                                                             RESULT = null;
-                                                                                             parser._done_parsing = true; :}
 ;
 
 WhileLoop ::=
   WHILE Expression:expr LOOP Body:body END    {: RESULT = "while ( " + expr + " ) {\n" + body + "}"; :}
-| WHILE error                                 {: System.out.println("Error in while loop around line #" + parser.LINE());
-                                                                                             RESULT = null;
-                                                                                             parser._done_parsing = true; :}
  ;
 
 IfStatement ::=
@@ -186,17 +147,11 @@ IfStatement ::=
   :}
 | IF Expression:expr THEN Body:body END {:
 RESULT = "if ( " + expr + " ) { " + body + "}"  ;:}
-| IF error                              {: System.out.println("Error in if statement  around line #" + parser.LINE());
-                                                                                         RESULT = null;
-                                                                                         parser._done_parsing = true; :}
 ;
 
 ReturnStatement ::=
   RETURN                    {: RESULT = "return;"  ;:}
 | RETURN Expression:expr    {: RESULT = "return" + expr + ";"  ;:}
-| RETURN error              {: System.out.println("Error in return statement around line #" + parser.LINE());
-                                                                                RESULT = null;
-                                                                                parser._done_parsing = true; :}
 ;
 
 Expression ::=
@@ -213,8 +168,6 @@ ExpressionBody ::=
 Arguments ::=
   LPAREN Expression:exp ArgumentExpression:aexp RPAREN   {: RESULT = "(" + exp + aexp + ")" ;:}
 | LPAREN RPAREN                                          {: RESULT = "()"; :}
-| LPAREN error RPAREN                                           {: System.out.println("No matching parentheses around line #" + parser.LINE());
-                                                            RESULT = null; parser._done_parsing = true; :}
 ;
 
 ArgumentExpression ::=

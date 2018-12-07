@@ -224,22 +224,19 @@ public class OLangTokenizer implements java_cup.runtime.Scanner {
      * @see        StreamTokenizer#sval
      * @see        StreamTokenizer#ttype
      */
-    private ComplexSymbolFactory sf = new ComplexSymbolFactory();
+    private SymbolFactory sf = new ComplexSymbolFactory();
     public Symbol next_token() throws java.lang.Exception {
         this.nextToken();
-        String name = this.toString();
-        ComplexSymbolFactory.Location location = new ComplexSymbolFactory.Location(lineno(), lineno());
-        int id = this.toMySymbol();
         if (this.ttype == TT_IDENTIFIER) {
-            return sf.newSymbol(name, id, location, location, sval);
+            return sf.newSymbol(this.toString(), this.toMySymbol(), sval);
         }
         if (this.ttype == TT_NUMBER) {
-            return sf.newSymbol(name, id, location, location, Double.toString(nval));
+            return sf.newSymbol(this.toString(), this.toMySymbol(), new Double(nval).toString());
         }
         if (this.ttype == TT_INTEGER) {
-            return sf.newSymbol(name, id, location, location, Integer.toString((int) nval));
+            return sf.newSymbol(this.toString(), this.toMySymbol(), new Integer((int)nval).toString());
         }
-        return sf.newSymbol(name, id, location);
+        return sf.newSymbol(this.toString(), this.toMySymbol());
     }
 
     private int nextToken() throws IOException {
