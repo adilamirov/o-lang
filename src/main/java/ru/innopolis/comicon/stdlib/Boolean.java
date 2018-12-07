@@ -30,30 +30,30 @@ public class Boolean {
     }
 
     //Boolean operators
-    public Boolean Or(Boolean p) {
-        return new Boolean(this.value || p.value);
+    public boolean Or(Boolean p) {
+        return(this.value || p.value);
     }
 
-    public Boolean Or(boolean p) {
-        return new Boolean(this.value || p);
+    public boolean Or(boolean p) {
+        return(this.value || p);
     }
 
-    public Boolean And(Boolean p) {
-        return new Boolean(this.value && p.value);
+    public boolean And(Boolean p) {
+        return(this.value && p.value);
     }
 
-    public Boolean And(boolean p) {
-        return new Boolean(this.value && p);
+    public boolean And(boolean p) {
+        return(this.value && p);
     }
 
-    public Boolean Xor(Boolean p) {
-        return new Boolean(this.value ^ p.value);
+    public boolean Xor(Boolean p) {
+        return(this.value ^ p.value);
     }
 
-    public Boolean Xor(boolean p) {
-        return new Boolean(this.value ^ p);
+    public boolean Xor(boolean p) {
+        return(this.value ^ p);
     }
 
-    public Boolean Not() { return new Boolean(!this.value);
+    public boolean Not() { return (!this.value);
     }
 }

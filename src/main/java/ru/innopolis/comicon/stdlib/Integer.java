@@ -136,67 +136,67 @@ public class Integer {
         return new Boolean(this.value < p);
     }
 
-    public Boolean LessEqual(Integer p) {
-        return new Boolean(this.value <= p.value);
+    public boolean LessEqual(Integer p) {
+        return (this.value <= p.value);
     }
 
-    public Boolean LessEqual(Real p) {
-        return new Boolean(this.value <= p.value);
+    public boolean LessEqual(Real p) {
+        return (this.value <= p.value);
     }
 
-    public Boolean LessEqual(int p) {
-        return new Boolean(this.value <= p);
+    public boolean LessEqual(int p) {
+        return (this.value <= p);
     }
 
-    public Boolean LessEqual(double p) {
-        return new Boolean(this.value <= p);
+    public boolean LessEqual(double p) {
+        return (this.value <= p);
     }
 
-    public Boolean Greater(Integer p) {
-        return new Boolean(this.value > p.value);
+    public boolean Greater(Integer p) {
+        return (this.value > p.value);
     }
 
-    public Boolean Greater(Real p) {
-        return new Boolean(this.value > p.toInteger().value);
+    public boolean Greater(Real p) {
+        return (this.value > p.toInteger().value);
     }
 
-    public Boolean Greater(int p) {
-        return new Boolean(this.value > p);
+    public boolean Greater(int p) {
+        return (this.value > p);
     }
 
-    public Boolean Greater(double p) {
-        return new Boolean(this.value > p);
+    public boolean Greater(double p) {
+        return (this.value > p);
     }
 
-    public Boolean GreaterEqual(Integer p) {
-        return new Boolean(this.value >= p.value);
+    public boolean GreaterEqual(Integer p) {
+        return (this.value >= p.value);
     }
 
-    public Boolean GreaterEqual(Real p) {
-        return new Boolean(this.value >= p.toInteger().value);
+    public boolean GreaterEqual(Real p) {
+        return (this.value >= p.toInteger().value);
     }
 
-    public Boolean GreaterEqual(int p) {
-        return new Boolean(this.value >= p);
+    public boolean GreaterEqual(int p) {
+        return (this.value >= p);
     }
 
-    public Boolean GreaterEqual(double p) {
-        return new Boolean(this.value >= p);
+    public boolean GreaterEqual(double p) {
+        return (this.value >= p);
     }
 
-    public Boolean Equal(Integer p) {
-        return new Boolean(this.value == p.value);
+    public boolean Equal(Integer p) {
+        return (this.value == p.value);
     }
 
-    public Boolean Equal(Real p) {
-        return new Boolean(this.value == p.toInteger().value);
+    public boolean Equal(Real p) {
+        return (this.value == p.toInteger().value);
     }
 
-    public Boolean Equal(int p) {
-        return new Boolean(this.value == p);
+    public boolean Equal(int p) {
+        return (this.value == p);
     }
 
-    public Boolean Equal(double p) {
-        return new Boolean(this.value == p);
+    public boolean Equal(double p) {
+        return (this.value == p);
     }
 }

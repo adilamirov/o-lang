@@ -116,83 +116,83 @@ public class Real {
     }
 
     // Relations
-    public Boolean Less(Real temp) {
-        return new Boolean(this.value < temp.value);
+    public boolean Less(Real temp) {
+        return (this.value < temp.value);
     }
 
-    public Boolean Less(Integer temp) {
-        return new Boolean(this.value < temp.value);
+    public boolean Less(Integer temp) {
+        return (this.value < temp.value);
     }
 
-    public Boolean Less(double temp) {
-        return new Boolean(this.value < temp);
+    public boolean Less(double temp) {
+        return (this.value < temp);
     }
 
-    public Boolean Less(int temp) {
-        return new Boolean(this.value < temp);
+    public boolean Less(int temp) {
+        return (this.value < temp);
     }
 
-    public Boolean LessEqual(Real temp) {
-        return new Boolean(this.value <= temp.value);
+    public boolean LessEqual(Real temp) {
+        return (this.value <= temp.value);
     }
 
-    public Boolean LessEqual(Integer temp) {
-        return new Boolean(this.value <= temp.value);
+    public boolean LessEqual(Integer temp) {
+        return (this.value <= temp.value);
     }
 
-    public Boolean LessEqual(double temp) {
-        return new Boolean(this.value <= temp);
+    public boolean LessEqual(double temp) {
+        return (this.value <= temp);
     }
 
-    public Boolean LessEqual(int temp) {
-        return new Boolean(this.value <= temp);
+    public boolean LessEqual(int temp) {
+        return (this.value <= temp);
     }
 
-    public Boolean Greater(Real temp) {
-        return new Boolean(this.value > temp.value);
+    public boolean Greater(Real temp) {
+        return (this.value > temp.value);
     }
 
-    public Boolean Greater(Integer temp) {
-        return new Boolean(this.value > temp.value);
+    public boolean Greater(Integer temp) {
+        return (this.value > temp.value);
     }
 
-    public Boolean Greater(double temp) {
-        return new Boolean(this.value > temp);
+    public boolean Greater(double temp) {
+        return (this.value > temp);
     }
 
-    public Boolean Greater(int temp) {
-        return new Boolean(this.value > temp);
+    public boolean Greater(int temp) {
+        return (this.value > temp);
     }
 
-    public Boolean GreaterEqual(Real temp) {
-        return new Boolean(this.value >= temp.value);
+    public boolean GreaterEqual(Real temp) {
+        return (this.value >= temp.value);
     }
 
-    public Boolean GreaterEqual(Integer temp) {
-        return new Boolean(this.value >= temp.value);
+    public boolean GreaterEqual(Integer temp) {
+        return (this.value >= temp.value);
     }
 
-    public Boolean GreaterEqual(double temp) {
-        return new Boolean(this.value >= temp);
+    public boolean GreaterEqual(double temp) {
+        return (this.value >= temp);
     }
 
-    public Boolean GreaterEqual(int temp) {
-        return new Boolean(this.value >= temp);
+    public boolean GreaterEqual(int temp) {
+        return (this.value >= temp);
     }
 
-    public Boolean Equal(Real temp) {
-        return new Boolean(this.value == temp.value);
+    public boolean Equal(Real temp) {
+        return (this.value == temp.value);
     }
 
-    public Boolean Equal(Integer temp) {
-        return new Boolean(this.value == temp.value);
+    public boolean Equal(Integer temp) {
+        return (this.value == temp.value);
     }
 
-    public Boolean Equal(double temp) {
-        return new Boolean(this.value == temp);
+    public boolean Equal(double temp) {
+        return (this.value == temp);
     }
 
-    public Boolean Equal(int temp) {
-        return new Boolean(this.value == temp);
+    public boolean Equal(int temp) {
+        return (this.value == temp);
     }
 }
