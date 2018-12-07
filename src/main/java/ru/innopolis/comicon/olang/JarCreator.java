@@ -9,9 +9,9 @@ import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
 
 public class JarCreator {
-    public static void run() throws IOException
+    public static void run(String classname) throws IOException
     {
-        String file1ToCompile = "./compilation/First.java";
+        String file1ToCompile = "./compilation/" + classname + ".java";
         String file2ToCompile = "./compilation/Main.java";
 
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
@@ -35,7 +35,7 @@ public class JarCreator {
         manifest.getMainAttributes().put(Attributes.Name.CLASS_PATH, "./compilation/");
         JarOutputStream target = new JarOutputStream(new FileOutputStream("output.jar"), manifest);
 
-        add(new File("./compilation/First.class"), target);
+        add(new File("./compilation/" + classname + ".java"), target);
         add(new File("./compilation/Main.class"), target);
 
         target.close();
