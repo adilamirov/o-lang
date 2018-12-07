@@ -6,7 +6,7 @@ public class Real {
     public double value;
 
     // Constructors
-    public Real() {}
+    public Real() { this.value = 0; }
 
     public Real(double temp) {
         this.value = temp;
