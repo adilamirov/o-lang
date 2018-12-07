@@ -75,6 +75,7 @@ public class OLangTokenizer implements java_cup.runtime.Scanner {
 
     public static final int TT_MINUS_SIGN = -27;
     public static final int TT_PLUS_SIGN = -28;
+    public static final int TT_INTEGER = -29;
 
     private static final Map<String, Integer> KEYWORDS = new HashMap<String, Integer>()
     {{
@@ -223,13 +224,22 @@ public class OLangTokenizer implements java_cup.runtime.Scanner {
      * @see        StreamTokenizer#sval
      * @see        StreamTokenizer#ttype
      */
-    private SymbolFactory sf = new ComplexSymbolFactory();
+    private ComplexSymbolFactory sf = new ComplexSymbolFactory();
     public Symbol next_token() throws java.lang.Exception {
         this.nextToken();
+        String name = this.toString();
+        ComplexSymbolFactory.Location location = new ComplexSymbolFactory.Location(lineno(), lineno());
+        int id = this.toMySymbol();
         if (this.ttype == TT_IDENTIFIER) {
-            return sf.newSymbol(this.toString(), this.toMySymbol(), sval);
+            return sf.newSymbol(name, id, location, location, sval);
         }
-        return sf.newSymbol(this.toString(), this.toMySymbol());
+        if (this.ttype == TT_NUMBER) {
+            return sf.newSymbol(name, id, location, location, Double.toString(nval));
+        }
+        if (this.ttype == TT_INTEGER) {
+            return sf.newSymbol(name, id, location, location, Integer.toString((int) nval));
+        }
+        return sf.newSymbol(name, id, location);
     }
 
     public int nextToken() throws IOException {
@@ -277,6 +287,7 @@ public class OLangTokenizer implements java_cup.runtime.Scanner {
         }
 
         if ((ctype & CT_DIGIT) != 0) {
+            boolean isDouble = false;
             boolean neg = false;
             if (c == '-') {
                 c = read();
@@ -318,6 +329,9 @@ public class OLangTokenizer implements java_cup.runtime.Scanner {
                 v = v / denom;
             }
             nval = neg ? -v : v;
+            if (seendot == 0) {
+                return ttype = TT_INTEGER;
+            }
             return ttype = TT_NUMBER;
         }
 
@@ -476,6 +490,9 @@ public class OLangTokenizer implements java_cup.runtime.Scanner {
             case TT_PLUS_SIGN:
                 ret="TT_PLUS_SIGN";
                 break;
+            case TT_INTEGER:
+                ret="TT_INTEGER";
+                break;
             default: {
                 /*
                  * ttype is the first character of either a quoted string or
@@ -509,7 +526,7 @@ public class OLangTokenizer implements java_cup.runtime.Scanner {
             case TT_WORD:
                 return -1;
             case TT_NUMBER:
-                return MySymbol.INTEGERLITERAL;
+                return MySymbol.REALLITERAL;
             case TT_NOTHING:
                 return -1;
             case TT_IDENTIFIER:
@@ -560,6 +577,8 @@ public class OLangTokenizer implements java_cup.runtime.Scanner {
                 return -1;
             case TT_PLUS_SIGN:
                 return -1;
+            case TT_INTEGER:
+                return MySymbol.INTEGERLITERAL;
         }
         return MySymbol.EOF;
     }
