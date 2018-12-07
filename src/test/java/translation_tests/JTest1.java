@@ -1,6 +1,7 @@
 package translation_tests;
-
 import ru.innopolis.comicon.stdlib.Integer;
+import ru.innopolis.comicon.stdlib.Real;
+
 
 public class JTest1 {
     public Integer a;

@@ -24,11 +24,11 @@ public class Real {
 
     // Features
     public Real Max() {
-        return new Real(Double.MAX_VALUE);
+        return new Real(1.7976931348623157E308D);
     }
 
     public Real Min() {
-        return new Real(Double.MIN_VALUE);
+        return new Real(4.9E-324D);
     }
 
     public Real Epsilon() {

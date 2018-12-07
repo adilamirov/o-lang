@@ -1,4 +1,6 @@
 package translation_tests;
+import ru.innopolis.comicon.stdlib.Integer;
+import ru.innopolis.comicon.stdlib.Real;
 
 
 public class JTest2 extends JTest1 {
@@ -22,22 +24,12 @@ public class JTest2 extends JTest1 {
     public Integer SumFromOneToN(Integer n) {
         Integer result = new Integer(1);
         Integer i = new Integer(1);
-        while (i.LessEqual(n)) {
+        while (i.LessEqual(n).value) {
             result = result.Plus(i);
             i = i.Plus(1);
         }
         return result;
     }
-
-    public Real SumOfArray(Array <Real> arr) {
-        Integer i = new Integer(0);
-        Real result = new Real(0);
-        while (i.Less(arr.size)) {
-            result = result.Plus(arr.get(i));
-        }
-        return result;
-    }
-
 
 }
 

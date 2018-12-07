@@ -1,5 +1,6 @@
 package ru.innopolis.comicon.stdlib;
 
+
 public class Integer {
     public int value;
 
@@ -24,11 +25,11 @@ public class Integer {
 
     //Features
     public Integer Max() {
-        return new Integer(java.lang.Integer.MAX_VALUE);
+        return new Integer(2147483647);
     }
 
     public Integer Min() {
-        return new Integer(java.lang.Integer.MIN_VALUE);
+        return new Integer(-2147483648);
     }
 
     //Conversions
@@ -140,7 +141,7 @@ public class Integer {
     }
 
     public Boolean LessEqual(Real p) {
-        return new Boolean(this.value <= p.toInteger().value);
+        return new Boolean(this.value <= p.value);
     }
 
     public Boolean LessEqual(int p) {

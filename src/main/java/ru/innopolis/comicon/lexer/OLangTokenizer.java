@@ -232,7 +232,7 @@ public class OLangTokenizer implements java_cup.runtime.Scanner {
         return sf.newSymbol(this.toString(), this.toMySymbol());
     }
 
-    private int nextToken() throws IOException {
+    public int nextToken() throws IOException {
         byte ct[] = ctype;
         sval = null;
 

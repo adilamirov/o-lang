@@ -21,40 +21,39 @@ public class Boolean {
     }
 
     public Boolean(double p) {
-        this.value = (p > 0);
+        this.value = (p > .0);
     }
 
     //Conversion
-    public Integer toInteger(){
+    public Integer toInteger() {
         return new Integer(this.value ? 1 : 0);
     }
 
     //Boolean operators
-    public Boolean Or(Boolean p){
+    public Boolean Or(Boolean p) {
         return new Boolean(this.value || p.value);
     }
 
-    public Boolean Or(boolean p){
+    public Boolean Or(boolean p) {
         return new Boolean(this.value || p);
     }
 
-    public Boolean And(Boolean p){
+    public Boolean And(Boolean p) {
         return new Boolean(this.value && p.value);
     }
 
-    public Boolean And(boolean p){
+    public Boolean And(boolean p) {
         return new Boolean(this.value && p);
     }
 
-    public Boolean Xor(Boolean p){
+    public Boolean Xor(Boolean p) {
         return new Boolean(this.value ^ p.value);
     }
 
-    public Boolean Xor(boolean p){
+    public Boolean Xor(boolean p) {
         return new Boolean(this.value ^ p);
     }
 
-    public Boolean Not(){
-        return new Boolean(!this.value);
+    public Boolean Not() { return new Boolean(!this.value);
     }
 }
