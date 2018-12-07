@@ -1,9 +1,10 @@
-package translation_test;
+package translation_tests;
+
 
 public class JTest2 extends JTest1 {
     public Integer value;
 
-    private JTest2(Real temp) {
+    private JTest2(ru.innopolis.comicon.stdlib.Real temp) {
         this.value = temp.toInteger();
     }
 

@@ -1,5 +1,6 @@
-package translation_test;
+package translation_tests;
 
+import ru.innopolis.comicon.stdlib.Integer;
 
 public class JTest1 {
     public Integer a;
@@ -11,7 +12,8 @@ public class JTest1 {
     }
 
     public void main() {
-        a = 12;
+        a = new Integer(12);
+        System.out.println(a + "\n");
         a = Square(a);
     }
 }
