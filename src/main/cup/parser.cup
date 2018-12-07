@@ -17,7 +17,7 @@ terminal String BOOLEANLITERAL;
 
 nonterminal Program;
 nonterminal ClassDeclaration, MemeberDeclaration, MemeberDeclarations;
-nonterminal VariableDeclaration, MethodDeclaration, ConstructorDeclaration;
+nonterminal VariableDeclaration, MethodDeclaration, ConstructorDeclaration, VariableDeclarationInMethod;
 nonterminal Expression;
 nonterminal Parameters, Body;
 nonterminal ParameterDeclaration, ParameterDeclarations;
@@ -33,8 +33,8 @@ precedence left LPAREN, RPAREN;
 precedence right RETURN;
 
 Program ::=
-  Program ClassDeclaration:cd    {: System.out.print(cd); :}
-| ClassDeclaration:cd            {: System.out.print(cd); :}
+  Program:program ClassDeclaration:cd   {: RESULT = program + "" + cd; System.out.print(program + "" + cd); :}
+| ClassDeclaration:cd                   {: RESULT = cd + ""; System.out.print("" + cd); :}
 ;
 
 
@@ -52,9 +52,26 @@ MemeberDeclaration ::=
 ;
 
 VariableDeclaration ::=
-  VAR IDENTIFIER:name COLON IDENTIFIER:type   {: RESULT = "public " + type + " " + name + "; "; :}
+  VAR IDENTIFIER:name COLON Expression:type   {:
+    String stype = type.toString();
+    if (stype.contains("(")) {
+        RESULT = "public " + stype.split("[(]")[0] + " " + name + " = new " + type + ";";
+    } else {
+        RESULT = "public " + stype + " " + name + " = new " + type + "();";
+    }
+  :}
 ;
 
+VariableDeclarationInMethod ::=
+  VAR IDENTIFIER:name COLON Expression:type   {:
+    String stype = type.toString();
+    if (stype.contains("(")) {
+        RESULT = stype.split("[(]")[0] + " " + name + " = new " + type + ";";
+    } else {
+        RESULT = stype + " " + name + " = new " + type + "();";
+    }
+  :}
+;
 
 MethodDeclaration ::=
   METHOD IDENTIFIER:name Parameters:args COLON IDENTIFIER:return_type IS Body:body END {:
@@ -98,12 +115,12 @@ ParameterDeclarations ::=
 
 
 ParameterDeclaration ::=
-  IDENTIFIER:name COLON IDENTIFIER:type   {: RESULT = name + " " + type ;:}
+  IDENTIFIER:name COLON IDENTIFIER:type   {: RESULT = type + " " + name ;:}
 ;
 
 
 Body ::=
-  Body:body VariableDeclaration:var {: RESULT = body + "\n" + var ;:}
+  Body:body VariableDeclarationInMethod:var {: RESULT = body + "\n" + var ;:}
 | Body:body Statement:statement     {: RESULT = body + "\n" + statement;:}
 |                                   {: RESULT = ""  ;:}
 ;
@@ -113,6 +130,7 @@ Statement ::=
 | WhileLoop:whileloop               {: RESULT = whileloop + "\n" ; :}
 | IfStatement:ifstatement           {: RESULT = ifstatement + "\n"; :}
 | ReturnStatement:returnstatement   {: RESULT = returnstatement + "\n"; :}
+| Expression:expression             {: RESULT = expression + ";\n"; :}
 ;
 
 Assignment ::=
@@ -137,7 +155,8 @@ ReturnStatement ::=
 ;
 
 Expression ::=
-  Primary:prim ExpressionBody:body    {: RESULT = prim + body ;:}
+  Primary:prim ExpressionBody:body      {: RESULT = prim + body; :}
+| Primary:prim Arguments:args           {: RESULT = prim + args; :}
 ;
 
 ExpressionBody ::=
@@ -148,6 +167,7 @@ ExpressionBody ::=
 
 Arguments ::=
   LPAREN Expression:exp ArgumentExpression:aexp RPAREN   {: RESULT = "(" + exp + aexp + ")" ;:}
+| LPAREN RPAREN                                          {: RESULT = "()"; :}
 ;
 
 ArgumentExpression ::=
