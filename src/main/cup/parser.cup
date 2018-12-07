@@ -2,6 +2,11 @@ package cup;
 
 import java_cup.runtime.*;
 
+
+parser code {:
+    public static String CLASS_NAME;
+:}
+
 terminal CLASS, EXTENDS, IS, END, VAR, METHOD, THIS, WHILE, LOOP, IF,
          THEN, ELSE, RETURN, LPAREN, RPAREN, LBRACKET, RBRCKET, COMMA,
          DOT, COLON, ASSIGN;
@@ -32,12 +37,7 @@ Program ::=
 | ClassDeclaration:cd            {: System.out.print(cd); :}
 ;
 
-ClassDeclaration ::=
-  CLASS IDENTIFIER:class_id EXTENDS IDENTIFIER:extends_id IS MemeberDeclarations:memdec END  {:
-  RESULT = "public class " + class_id + " extends " + extends_id + " { " + memdec + "}"; :}
-| CLASS IDENTIFIER:class_name IS MemeberDeclarations:members END  {:
-    RESULT = "public class " + class_name + " {\n" + members + "}";
-:};
+
 
 MemeberDeclarations ::=
   MemeberDeclaration:member MemeberDeclarations:members
@@ -69,9 +69,20 @@ MethodDeclaration ::=
 ;
 
 
+ClassDeclaration ::=
+  CLASS IDENTIFIER:class_id EXTENDS IDENTIFIER:extends_id IS MemeberDeclarations:members END  {:
+  members = members.toString().replaceAll("<CLASSNAME>", class_id);
+  RESULT = "public class " + class_id + " extends " + extends_id + " { " + members + "}";
+  :}
+| CLASS IDENTIFIER:class_id IS MemeberDeclarations:members END  {:
+    members = members.toString().replaceAll("<CLASSNAME>", class_id);
+    RESULT = "public class " + class_id + " {\n" + members + "}";
+:};
+
+
 ConstructorDeclaration ::=
-  THIS Parameters:parameters IS Body:body END   {: RESULT = "???"; :}
-| THIS IS Body :body END                        {: RESULT = "???"; :}
+  THIS Parameters:parameters IS Body:body END   {: RESULT = "public " + "<CLASSNAME>" + parameters + "{\n" + body + "\n}"; :}
+| THIS IS Body :body END                        {: RESULT = "public " + "<CLASSNAME>" + "()" + "{\n" + body + "\n}"; :}
 ;
 
 

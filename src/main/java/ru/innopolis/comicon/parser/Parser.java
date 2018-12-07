@@ -32,10 +32,10 @@ public class Parser extends lr_parser {
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
     "\000\055\000\002\002\004\000\002\002\004\000\002\002" +
-    "\003\000\002\003\011\000\002\003\007\000\002\005\004" +
-    "\000\002\005\002\000\002\004\003\000\002\004\003\000" +
-    "\002\004\003\000\002\006\006\000\002\007\012\000\002" +
-    "\007\011\000\002\007\010\000\002\010\007\000\002\010" +
+    "\003\000\002\005\004\000\002\005\002\000\002\004\003" +
+    "\000\002\004\003\000\002\004\003\000\002\006\006\000" +
+    "\002\007\012\000\002\007\011\000\002\007\010\000\002" +
+    "\003\011\000\002\003\007\000\002\010\007\000\002\010" +
     "\006\000\002\012\006\000\002\015\005\000\002\015\002" +
     "\000\002\014\005\000\002\013\004\000\002\013\004\000" +
     "\002\013\002\000\002\016\003\000\002\016\003\000\002" +
@@ -56,12 +56,12 @@ public class Parser extends lr_parser {
     "\000\141\000\004\004\006\001\002\000\006\002\143\004" +
     "\006\001\002\000\006\002\uffff\004\uffff\001\002\000\004" +
     "\031\007\001\002\000\006\005\010\006\011\001\002\000" +
-    "\004\031\136\001\002\000\012\007\ufffb\010\013\011\021" +
-    "\012\020\001\002\000\012\007\ufff8\010\ufff8\011\ufff8\012" +
-    "\ufff8\001\002\000\004\031\133\001\002\000\012\007\ufffa" +
-    "\010\ufffa\011\ufffa\012\ufffa\001\002\000\012\007\ufffb\010" +
-    "\013\011\021\012\020\001\002\000\012\007\ufff9\010\ufff9" +
-    "\011\ufff9\012\ufff9\001\002\000\004\007\131\001\002\000" +
+    "\004\031\136\001\002\000\012\007\ufffd\010\013\011\021" +
+    "\012\020\001\002\000\012\007\ufffa\010\ufffa\011\ufffa\012" +
+    "\ufffa\001\002\000\004\031\133\001\002\000\012\007\ufffc" +
+    "\010\ufffc\011\ufffc\012\ufffc\001\002\000\012\007\ufffd\010" +
+    "\013\011\021\012\020\001\002\000\012\007\ufffb\010\ufffb" +
+    "\011\ufffb\012\ufffb\001\002\000\004\007\131\001\002\000" +
     "\006\006\123\021\025\001\002\000\004\031\022\001\002" +
     "\000\006\021\025\027\024\001\002\000\006\006\113\027" +
     "\112\001\002\000\004\031\036\001\002\000\004\031\026" +
@@ -84,7 +84,7 @@ public class Parser extends lr_parser {
     "\017\uffec\020\uffec\031\uffec\001\002\000\004\030\075\001" +
     "\002\000\030\007\uffe2\010\uffe2\012\062\013\uffe2\015\uffe2" +
     "\017\uffe2\020\uffe2\031\uffe2\032\054\033\056\034\057\001" +
-    "\002\000\012\007\ufff5\010\ufff5\011\ufff5\012\ufff5\001\002" +
+    "\002\000\012\007\ufff7\010\ufff7\011\ufff7\012\ufff7\001\002" +
     "\000\020\007\uffed\010\uffed\013\uffed\015\uffed\017\uffed\020" +
     "\uffed\031\uffed\001\002\000\032\007\uffd9\010\uffd9\013\uffd9" +
     "\014\uffd9\015\uffd9\016\uffd9\017\uffd9\020\uffd9\022\uffd9\025" +
@@ -132,11 +132,11 @@ public class Parser extends lr_parser {
     "\001\002\000\004\031\116\001\002\000\016\007\uffeb\010" +
     "\uffeb\013\uffeb\015\uffeb\020\uffeb\031\uffeb\001\002\000\016" +
     "\007\115\010\013\013\042\015\046\020\051\031\050\001" +
-    "\002\000\012\007\ufff4\010\ufff4\011\ufff4\012\ufff4\001\002" +
+    "\002\000\012\007\ufff6\010\ufff6\011\ufff6\012\ufff6\001\002" +
     "\000\004\006\117\001\002\000\016\007\uffeb\010\uffeb\013" +
     "\uffeb\015\uffeb\020\uffeb\031\uffeb\001\002\000\016\007\121" +
     "\010\013\013\042\015\046\020\051\031\050\001\002\000" +
-    "\012\007\ufff6\010\ufff6\011\ufff6\012\ufff6\001\002\000\004" +
+    "\012\007\ufff8\010\ufff8\011\ufff8\012\ufff8\001\002\000\004" +
     "\006\126\001\002\000\016\007\uffeb\010\uffeb\013\uffeb\015" +
     "\uffeb\020\uffeb\031\uffeb\001\002\000\016\007\125\010\013" +
     "\013\042\015\046\020\051\031\050\001\002\000\012\007" +
@@ -144,13 +144,13 @@ public class Parser extends lr_parser {
     "\010\uffeb\013\uffeb\015\uffeb\020\uffeb\031\uffeb\001\002\000" +
     "\016\007\130\010\013\013\042\015\046\020\051\031\050" +
     "\001\002\000\012\007\ufff3\010\ufff3\011\ufff3\012\ufff3\001" +
-    "\002\000\006\002\ufffd\004\ufffd\001\002\000\004\007\ufffc" +
+    "\002\000\006\002\ufff4\004\ufff4\001\002\000\004\007\ufffe" +
     "\001\002\000\004\027\134\001\002\000\004\031\135\001" +
-    "\002\000\024\007\ufff7\010\ufff7\011\ufff7\012\ufff7\013\ufff7" +
-    "\015\ufff7\017\ufff7\020\ufff7\031\ufff7\001\002\000\004\006" +
-    "\137\001\002\000\012\007\ufffb\010\013\011\021\012\020" +
-    "\001\002\000\004\007\141\001\002\000\006\002\ufffe\004" +
-    "\ufffe\001\002\000\006\002\001\004\001\001\002\000\004" +
+    "\002\000\024\007\ufff9\010\ufff9\011\ufff9\012\ufff9\013\ufff9" +
+    "\015\ufff9\017\ufff9\020\ufff9\031\ufff9\001\002\000\004\006" +
+    "\137\001\002\000\012\007\ufffd\010\013\011\021\012\020" +
+    "\001\002\000\004\007\141\001\002\000\006\002\ufff5\004" +
+    "\ufff5\001\002\000\006\002\001\004\001\001\002\000\004" +
     "\002\000\001\002" });
 
   /** Access to parse-action table. */
@@ -241,6 +241,10 @@ public class Parser extends lr_parser {
   public int error_sym() {return 1;}
 
 
+
+    public static String CLASS_NAME;
+
+
 /** Cup generated class to encapsulate user supplied action code.*/
 @SuppressWarnings({"rawtypes", "unchecked", "unused"})
 class CUP$Parser$actions {
@@ -304,43 +308,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 3: // ClassDeclaration ::= CLASS IDENTIFIER EXTENDS IDENTIFIER IS MemeberDeclarations END 
-            {
-              Object RESULT =null;
-		int class_idleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).left;
-		int class_idright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).right;
-		String class_id = (String)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-5)).value;
-		int extends_idleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
-		int extends_idright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
-		String extends_id = (String)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
-		int memdecleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
-		int memdecright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
-		Object memdec = (Object)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		
-  RESULT = "public class " + class_id + " extends " + extends_id + " { " + memdec + "}"; 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("ClassDeclaration",1, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
-            }
-          return CUP$Parser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 4: // ClassDeclaration ::= CLASS IDENTIFIER IS MemeberDeclarations END 
-            {
-              Object RESULT =null;
-		int class_nameleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
-		int class_nameright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
-		String class_name = (String)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
-		int membersleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
-		int membersright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
-		Object members = (Object)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		
-    RESULT = "public class " + class_name + " {\n" + members + "}";
-
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("ClassDeclaration",1, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
-            }
-          return CUP$Parser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 5: // MemeberDeclarations ::= MemeberDeclaration MemeberDeclarations 
+          case 3: // MemeberDeclarations ::= MemeberDeclaration MemeberDeclarations 
             {
               Object RESULT =null;
 		int memberleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
@@ -355,7 +323,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // MemeberDeclarations ::= 
+          case 4: // MemeberDeclarations ::= 
             {
               Object RESULT =null;
 		 RESULT = ""; 
@@ -364,7 +332,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 7: // MemeberDeclaration ::= VariableDeclaration 
+          case 5: // MemeberDeclaration ::= VariableDeclaration 
             {
               Object RESULT =null;
 		int varleft = ((Symbol)CUP$Parser$stack.peek()).left;
@@ -376,7 +344,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 8: // MemeberDeclaration ::= MethodDeclaration 
+          case 6: // MemeberDeclaration ::= MethodDeclaration 
             {
               Object RESULT =null;
 		int methodleft = ((Symbol)CUP$Parser$stack.peek()).left;
@@ -388,7 +356,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 9: // MemeberDeclaration ::= ConstructorDeclaration 
+          case 7: // MemeberDeclaration ::= ConstructorDeclaration 
             {
               Object RESULT =null;
 		int cnstrctrleft = ((Symbol)CUP$Parser$stack.peek()).left;
@@ -400,7 +368,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 10: // VariableDeclaration ::= VAR IDENTIFIER COLON IDENTIFIER 
+          case 8: // VariableDeclaration ::= VAR IDENTIFIER COLON IDENTIFIER 
             {
               Object RESULT =null;
 		int nameleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
@@ -415,7 +383,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 11: // MethodDeclaration ::= METHOD IDENTIFIER Parameters COLON IDENTIFIER IS Body END 
+          case 9: // MethodDeclaration ::= METHOD IDENTIFIER Parameters COLON IDENTIFIER IS Body END 
             {
               Object RESULT =null;
 		int nameleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)).left;
@@ -438,7 +406,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 12: // MethodDeclaration ::= METHOD IDENTIFIER COLON IDENTIFIER IS Body END 
+          case 10: // MethodDeclaration ::= METHOD IDENTIFIER COLON IDENTIFIER IS Body END 
             {
               Object RESULT =null;
 		int nameleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).left;
@@ -458,7 +426,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 13: // MethodDeclaration ::= METHOD IDENTIFIER Parameters IS Body END 
+          case 11: // MethodDeclaration ::= METHOD IDENTIFIER Parameters IS Body END 
             {
               Object RESULT =null;
 		int nameleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).left;
@@ -478,6 +446,45 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
+          case 12: // ClassDeclaration ::= CLASS IDENTIFIER EXTENDS IDENTIFIER IS MemeberDeclarations END 
+            {
+              Object RESULT =null;
+		int class_idleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).left;
+		int class_idright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).right;
+		String class_id = (String)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-5)).value;
+		int extends_idleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
+		int extends_idright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
+		String extends_id = (String)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
+		int membersleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
+		int membersright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
+		Object members = (Object)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		
+  members = members.toString().replaceAll("<CLASSNAME>", class_id);
+  RESULT = "public class " + class_id + " extends " + extends_id + " { " + members + "}";
+  
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("ClassDeclaration",1, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
+            }
+          return CUP$Parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 13: // ClassDeclaration ::= CLASS IDENTIFIER IS MemeberDeclarations END 
+            {
+              Object RESULT =null;
+		int class_idleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
+		int class_idright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
+		String class_id = (String)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
+		int membersleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
+		int membersright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
+		Object members = (Object)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		
+    members = members.toString().replaceAll("<CLASSNAME>", class_id);
+    RESULT = "public class " + class_id + " {\n" + members + "}";
+
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("ClassDeclaration",1, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
+            }
+          return CUP$Parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
           case 14: // ConstructorDeclaration ::= THIS Parameters IS Body END 
             {
               Object RESULT =null;
@@ -487,7 +494,7 @@ class CUP$Parser$actions {
 		int bodyleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int bodyright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object body = (Object)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT = "???"; 
+		 RESULT = "public " + "<CLASSNAME>" + parameters + "{\n" + body + "\n}"; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ConstructorDeclaration",6, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -499,7 +506,7 @@ class CUP$Parser$actions {
 		int bodyleft = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int bodyright = ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object body = (Object)((Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT = "???"; 
+		 RESULT = "public " + "<CLASSNAME>" + "()" + "{\n" + body + "\n}"; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ConstructorDeclaration",6, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
