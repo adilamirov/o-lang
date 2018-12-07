@@ -3,7 +3,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 
 import ru.innopolis.comicon.lexer.OLangTokenizer;
 
