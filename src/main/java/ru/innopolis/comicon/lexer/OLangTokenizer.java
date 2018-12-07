@@ -242,7 +242,7 @@ public class OLangTokenizer implements java_cup.runtime.Scanner {
         return sf.newSymbol(name, id, location);
     }
 
-    private int nextToken() throws IOException {
+    public int nextToken() throws IOException {
         byte ct[] = ctype;
         sval = null;
 
