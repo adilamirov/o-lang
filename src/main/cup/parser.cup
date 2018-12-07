@@ -135,6 +135,7 @@ ConstructorDeclaration ::=
 
 Parameters ::=
   LPAREN ParameterDeclaration:param ParameterDeclarations:params RPAREN {: RESULT = "(" + param + params + ")"; :}
+| LPAREN RPAREN {: RESULT = "()"; :}
 ;
 
 
@@ -192,8 +193,8 @@ RESULT = "if ( " + expr + " ) { " + body + "}"  ;:}
 ;
 
 ReturnStatement ::=
-  RETURN                    {: RESULT = "return;"  ;:}
-| RETURN Expression:expr    {: RESULT = "return" + expr + ";"  ;:}
+  RETURN Expression:expr    {: RESULT = "return" + " " + expr + ";"; :}
+| RETURN                    {: RESULT = "return;" ; :}
 | RETURN error              {: System.out.println("Error in return statement around line #" + parser.LINE());
                                                                                 RESULT = null;
                                                                                 parser._done_parsing = true; :}
@@ -227,5 +228,5 @@ Primary ::=
 | REALLITERAL:real          {: RESULT = real  ;:}
 | BOOLEANLITERAL:bool       {: RESULT = bool  ;:}
 | THIS                      {: RESULT = "this";:}
-| IDENTIFIER:id             {: RESULT = id  ;:}
+| IDENTIFIER:identifier     {: RESULT = identifier;:}
 ;
