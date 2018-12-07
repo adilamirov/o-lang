@@ -994,7 +994,7 @@ RESULT = "if ( " + expr + " ) { " + body + "}"  ;
 		int exprleft = ((Symbol)CUP$Parser$stack.peek()).left;
 		int exprright = ((Symbol)CUP$Parser$stack.peek()).right;
 		Object expr = (Object)((Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = "return" + " " + expr + ";"; System.out.println("SUKA");
+		 RESULT = "return" + " " + expr + ";";
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ReturnStatement",17, ((Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1003,7 +1003,7 @@ RESULT = "if ( " + expr + " ) { " + body + "}"  ;
           case 46: // ReturnStatement ::= RETURN
             {
               Object RESULT =null;
-		 RESULT = "return;" ; System.out.println("Blyatb");
+		 RESULT = "return;" ;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ReturnStatement",17, ((Symbol)CUP$Parser$stack.peek()), ((Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
